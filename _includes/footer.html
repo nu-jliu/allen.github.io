@@ -1,4 +1,5 @@
 <!-- Contact -->
+<!--
 <section id="contact">
 	<div class="inner">
 		<section>
@@ -59,29 +60,18 @@
 					</span>
 				</div>
 			</section>
-			<section>
-				<h3>Socials</h3>
-				<ul class="icons">
-					{% for key_value in site.socials %}
-						{% if key_value[1] %}
-							<li>
-								<a href="{{ key_value[1] }}" class="icon alt fa-{{ key_value[0] | downcase }}" target="_blank" rel="noopener noreferrer" aria-label="{{ key_value[0] }}">
-									<span class="label">{{ key_value[0] }}</span>
-								</a>
-							</li>
-						{% endif %}
-					{% endfor %}
-				</ul>
-			</section>
 		</section>
 	</div>
 </section>
-
+-->
 <!-- Footer -->
 	<footer id="footer">
 		<div class="inner">
+			{% include contact_icons.html %}
 			<!--
 			<ul class="icons">
+				<li><a href="mailto:{{ site.email }}" class="icon alt fa-envelope"></a></li>
+				<li><a href="tel:{{ site.phone }}" class="icon alt fa-phone"></a></li>
 				{% for key_value in site.socials %}
 					{% if key_value[1] %}
 						<li>
@@ -94,7 +84,7 @@
 			</ul>
 			-->
 			<ul class="copyright">
-				<li>&copy; {{ site.title }} {{ site.subtitle }}</li>
+				<li>&copy; <script>document.write(new Date().getFullYear())</script> {{ site.title }} </li>
 				<li>Design: <a href="https://html5up.net" target="_blank">HTML5 UP</a></li>
 				<li>Jekyll integration: <a href="http://andrewbanchi.ch" target="_blank">Andrew Banchich</a></li>
 
