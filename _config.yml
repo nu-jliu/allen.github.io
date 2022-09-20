@@ -3,8 +3,8 @@ title: Nicolas G. Morales
 subtitle: Portfolio
 email: nicolasgmorales@u.northwestern.edu
 description: Hi! My name is Nick, welcome to my portfolio.
-baseurl: "/ngm" # the subpath of your site, e.g. /blog
-url: # the base hostname & protocol for your site
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://ngmor.github.io" # the base hostname & protocol for your site
 author:
 street_address: 1200 Simpson St Apt 2E
 city: Evanston
