@@ -1,6 +1,6 @@
 # site settings
-title: Portfolio
-subtitle: Nicolas G. Morales
+title: Nicolas G. Morales
+subtitle: Portfolio
 email: nicolasgmorales@u.northwestern.edu
 description: Hi! My name is Nick, welcome to my portfolio.
 baseurl: "/ngm" # the subpath of your site, e.g. /blog
