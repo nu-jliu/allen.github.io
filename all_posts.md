@@ -1,7 +1,7 @@
 ---
 layout: allposts
-title: All posts
-landing-title: 'All posts'
+title: Projects
+landing-title: 'Projects'
 nav-menu: true
 description: null
 image: null
