@@ -2,7 +2,7 @@
 layout: post
 title: TwinCAT Training Material
 description: Beckhoff How-Tos and Training Labs
-image: assets/images/twincat-training/main.jpg
+image: assets/images/twincat-training/main.png
 ---
 
 During my time with the automation team at DMC, Inc, I became somewhat of a subject matter expert with Beckhoff's TwinCAT 3 platform.
