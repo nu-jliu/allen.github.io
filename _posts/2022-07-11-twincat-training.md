@@ -3,6 +3,7 @@ layout: post
 title: TwinCAT Training Material
 description: Beckhoff How-Tos and Training Labs
 image: assets/images/twincat-training/main.png
+imagewidth: 90%
 ---
 
 During my time with the automation team at **[DMC, Inc](https://www.dmcinfo.com/)**, I became somewhat of a subject matter expert with **[Beckhoff's TwinCAT 3 platform](https://www.beckhoff.com/en-us/products/automation/twincat/)**. "*T*he *Win*dows *C*ontrol and *A*utomation *T*echnology" (TwinCAT) is a suite of software which turns PC-based systems into programmable logic controllers (PLCs) for industrial automation settings. The fact that these "soft" PLCs are PC-based is very powerful, since they can interact directly with the Windows OS, opening them up to possible uses not available with traditional PLCs.
