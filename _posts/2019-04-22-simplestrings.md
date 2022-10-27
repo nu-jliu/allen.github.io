@@ -69,18 +69,26 @@ When one of the colored buttons along the bottom of the device is pressed, 24 sm
 {: refdef}
 
 ### Electrical Subsystem
-My primary responsibility. Explain TODO
-- Selecting components
-- Designing architecture to properly handle amount of IO
-    - Shift registers to control motor grid
-- Converters to handle the proper voltage
-- OLED screens, I2C multiplexer due to address conflicts
-- Designed custom PCBs in KiCAD
+Although I was involved in almost all aspects of this project, my primary responsibility was to design and manufacture the electrical subsystems. This involved designing an architecture to control/power all the components of the system, selecting those components, designing a PCB to mount/connect necessary components, and assembling/testing the system. An added mechanical challenge was conforming to the form factor of the guitar neck for the final prototype.
+
+One of the main challenges was the amount of IO that we needed to control. 5 OLED screens controlled via I2C, 7 digital buttons, and a grid of 24 motors is a lot of IO points to consider. We made the decision to use the Arduino Mega 2560 Pro - a smaller form factor version of the Arduino MEGA 2560 - for its extra IO capacity over a more typical Arduino Uno or Nano. Even with this higher capacity board there was not enough IO to independently control each of the 24 motors with a PWM signal. Part of the solution for this was to use separate motor control boards, which allowed us to use simple digital signals to send commands to the motors. Still, multiple digital signals to each of the 24 motors meant quite a bit of digital output pins to use. Instead, our solution was to use an array of shift registers to which we fed motor commands serially. Since we always needed to send commands all motors at the same time (during a chord change), we could simply load our commands into the shift registers and then trigger movements simultaneously.
+
+TODO - microcontroller picture
+
+We also wanted to line our OLED displays up roughly with the buttons below to encourage a spatial relationship between the buttons and the data on the screens. Rather than using one large, potentially heavy and power-hungry screen to show all of this information, we instead decided to split the information into 5 lightweight screens. These particular OLED displays communicated over I2C, but only had 2 options for I2C addresses. In order to control each display individually, we had to make use of an I2C multiplexer. This allowed us to toggle between the screens to send updated data as necessary.
+
+TODO - screen picture?
+
+Finally, we decided to create custom PCBs to hold our components for several reasons. First, even though this design was intended as a prototype, we didn't feel that a breadboard setup would be reliable, given the number of connections between components that was necessary. Secondly, a breadboard setup would have been much more bulky than a PCB setup, which would have made it difficult to mount to the guitar neck. However, with designing a PCB comes the inherent risk that, if some components were to break, it would be more difficult to replace them if they were all soldered directly to the board. In an accelerated project time frame like this, this was an important consideration. So we decided to pursue a compromise - design a custom PCB to reduce the complexity and increase the reliability of component connections, but make heavy use of header sockets and pins so we could quickly remove and replace components if necessary.
 
 {:refdef: style="text-align: center;"}
 ![Custom PCB 1](/assets/images/simplestrings/board-i.png){: width="40%" style="padding-bottom: 0.5%; padding-right: 1.25%"}
 ![Custom PCB 2](/assets/images/simplestrings/board-ii.png){: width="40%" style="padding-left: 1.25%"}
 {: refdef}
+
+I designed and laid out the boards using [**KiCad**](https://www.kicad.org/). To fit all the removable components into the form factor of the guitar neck, I had to place the components into two separate boards that were stacked on top of eachother and connected via a 50 pin surface mounted connector. It worked very well, although it did add vertical bulk to the device. This was a tradeoff for flexibility in prototyping that, if we were designing a next generation or final product design, I would certainly want to consolidate to remove vertical bulk.
+
+After completing the design, ordering, and receiving the boards, I soldered all the components together to create a finished product for the prototype. Prior to the design of the PCB, we had completed successful breadboard tests for all the components. But our big moment of truth was making sure that all the components integrated together would still function properly. Thankfully, after the detailed design review our team did on the boards, all the components worked perfectly, and our project's electrical subsystem was complete!
 
 {:refdef: style="text-align: center;"}
 ![Assembled PCBs with components](/assets/images/simplestrings/assembled-electronics.jpg){: width="60%" }
@@ -93,6 +101,7 @@ Our own improvements as well as feedback from music therapists.
 - Buttons hard to see
 - Indication of which chords is played
 - Height is very cumbersome (insert pictures)
+    - Simplify motor control with I2C
 
 {:refdef: style="text-align: center;"}
 ![Possible PCB height reduction](/assets/images/simplestrings/pcb-height-reduction.png){: width="40%" style="padding-right: 1.25%"}
