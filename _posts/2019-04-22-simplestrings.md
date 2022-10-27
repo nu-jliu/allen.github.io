@@ -8,6 +8,8 @@ imagewidth: 0
 
 Mechanical engineering students at Purdue University participate in a semester long capstone project in teams of six. The goal of the project is to propose, design, and produce a prototype of a product to solve a problem of the team's choice. My team decided to combine our experience with mechanical, electrical, and software engineering with our passion for music to create **SimpleStrings**, an assistive guitar playing device.
 
+SimpleStrings was designed as a tool for music therapy. [**Music Therapy**](https://www.musictherapy.org/about/musictherapy/) is the practice of using music in a therapeutic relationship to address physical, emotional, cognitive, and social needs of individuals. It can be used to help individuals in many situations, including **brain injuries**, **dementia**, **dyslexia**, **autism**, **mental illnesses**, and more.
+
 
 {% include youtube.html video_id="94spG3D15ZU" width="75%" %}
 
@@ -16,8 +18,6 @@ Mechanical engineering students at Purdue University participate in a semester l
 
 
 ## Problem Definition
-SimpleStrings was designed as a tool for music therapy. [**Music Therapy**](https://www.musictherapy.org/about/musictherapy/) is the practice of using music in a therapeutic relationship to address physical, emotional, cognitive, and social needs of individuals. It can be used to help individuals in many situations, including **brain injuries**, **dementia**, **dyslexia**, **autism**, **mental illnesses**, and more.
-
 **Guitar can be a challenging instrument to use in music therapy situations**. It involves complex hand configurations and memorization to produce chords. In situations where therapy is the end goal (not learning to play the instrument itself), this learning curve can cause frustration on the part of the player. During our initial research phase, my teams spoke to 9 music therapy professionals and 2 special educators. We learned from them that some of their patients love the guitar, and a method of facilitating access to the instrument would improve their music therapy experience and outcomes.
 
 With that in mind, we set out to design a device that would **make it easier for individuals with varying physical and/or mental abilities to play the guitar**.
@@ -73,11 +73,15 @@ Although I was involved in almost all aspects of this project, my primary respon
 
 One of the main challenges was the amount of IO that we needed to control. 5 OLED screens controlled via I2C, 7 digital buttons, and a grid of 24 motors is a lot of IO points to consider. We made the decision to use the Arduino Mega 2560 Pro - a smaller form factor version of the Arduino MEGA 2560 - for its extra IO capacity over a more typical Arduino Uno or Nano. Even with this higher capacity board there was not enough IO to independently control each of the 24 motors with a PWM signal. Part of the solution for this was to use separate motor control boards, which allowed us to use simple digital signals to send commands to the motors. Still, multiple digital signals to each of the 24 motors meant quite a bit of digital output pins to use. Instead, our solution was to use an array of shift registers to which we fed motor commands serially. Since we always needed to send commands all motors at the same time (during a chord change), we could simply load our commands into the shift registers and then trigger movements simultaneously.
 
-TODO - microcontroller picture
+{:refdef: style="text-align: center;"}
+![Arduino MEGA 2560 Pro](/assets/images/simplestrings/arduino-mega-2560-pro.png){: width="3+0%" }
+{: refdef}
 
 We also wanted to line our OLED displays up roughly with the buttons below to encourage a spatial relationship between the buttons and the data on the screens. Rather than using one large, potentially heavy and power-hungry screen to show all of this information, we instead decided to split the information into 5 lightweight screens. These particular OLED displays communicated over I2C, but only had 2 options for I2C addresses. In order to control each display individually, we had to make use of an I2C multiplexer. This allowed us to toggle between the screens to send updated data as necessary.
 
-TODO - screen picture?
+{:refdef: style="text-align: center;"}
+![Chords displayed on the OLED screens](/assets/images/simplestrings/oled-closeup.png){: width="60%" }
+{: refdef}
 
 Finally, we decided to create custom PCBs to hold our components for several reasons. First, even though this design was intended as a prototype, we didn't feel that a breadboard setup would be reliable, given the number of connections between components that was necessary. Secondly, a breadboard setup would have been much more bulky than a PCB setup, which would have made it difficult to mount to the guitar neck. However, with designing a PCB comes the inherent risk that, if some components were to break, it would be more difficult to replace them if they were all soldered directly to the board. In an accelerated project time frame like this, this was an important consideration. So we decided to pursue a compromise - design a custom PCB to reduce the complexity and increase the reliability of component connections, but make heavy use of header sockets and pins so we could quickly remove and replace components if necessary.
 
@@ -96,12 +100,15 @@ After completing the design, ordering, and receiving the boards, I soldered all 
 
 
 ## Future Improvements
-TODO
-Our own improvements as well as feedback from music therapists.
-- Buttons hard to see
-- Indication of which chords is played
-- Height is very cumbersome (insert pictures)
-    - Simplify motor control with I2C
+Our design was only ever intended to be a first prototype of the SimpleStrings system, and their certainly were areas for improvement we would like to tackle if we pursued a next iteration. Some of our own desired improvements, as well as those we collected from the music therapists we talked to, are listed below.
+
+**1. The height of the device is very cumbersome.**
+
+This is perhaps the most significant improvement we could make for the product. It's large, which makes it more difficult to transport, attach, see the buttons, etc.
+
+A lot of the height of the product is directly related to limitations of the prototype process. For example, our choice to use PCB components mounted in header sockets greatly increased the vertical height of our PCB design. If replaced by surface mount components, we could reduce the PCB height by 85%. Similarly, if we could order our motors in bulk, we could specify a gear ratio built into our motors, rather than having an external gearbox. This would decrease the height of our motor assembly. These two reductions alone would reduce the total height of the device by 29%.
+
+We could also explore other options for more efficient packaging of the components in our system to further reduce the height.
 
 {:refdef: style="text-align: center;"}
 ![Possible PCB height reduction](/assets/images/simplestrings/pcb-height-reduction.png){: width="40%" style="padding-right: 1.25%"}
@@ -112,6 +119,17 @@ Our own improvements as well as feedback from music therapists.
 ![Possible total height reduction](/assets/images/simplestrings/total-height-reduction.png){: width="40%"}
 {: refdef}
 
+**2. The screens currently don't indicate which chord is being played, which would be helpful for users.**
 
-And finally, here's an extended cut of the project video!
+This functionality would be possible with the current hardware and a software update, but we could even explore different options for color OLED screens and improve the UI of the device in general.
+
+**3. The buttons are difficult for users to see while playing the device.**
+
+Certainly reduction in height, as mentioned above, would help address this problem. We could also explore more ergonomic redesigns of the device form factor or improve the screen UI to reduce the relevance of looking directly at the buttons.
+
+## Conclusions
+This capstone process was a great experience to go through the process of product design. SimpleStrings was incredibly fun to design and play with, and we hope it would be very helpful in music therapy contexts. We certainly have areas to improve, but no engineering project is finished on the first iteration!
+
+
+Finally, here's an extended cut of the project video:
 {% include youtube.html video_id="d3h6AYNHfU4" width="75%"%}
