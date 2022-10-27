@@ -8,18 +8,12 @@ imagewidth: 0
 
 Mechanical engineering students at Purdue University participate in a semester long capstone project in teams of six. The goal of the project is to propose, design, and produce a prototype of a product to solve a problem of the team's choice. My team decided to combine our experience with mechanical, electrical, and software engineering with our passion for music to create **SimpleStrings**, an assistive guitar playing device.
 
-<center>
-<iframe
-    width="75%"
-    height="640"
-    src="https://www.youtube.com/embed/94spG3D15ZU"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
->
-</iframe>
-</center>
+
+{% include youtube.html video_id="94spG3D15ZU" width="75%" %}
+
 <br>
+
+
 
 ## Problem Definition
 SimpleStrings was designed as a tool for music therapy. [**Music Therapy**](https://www.musictherapy.org/about/musictherapy/) is the practice of using music in a therapeutic relationship to address physical, emotional, cognitive, and social needs of individuals. It can be used to help individuals in many situations, including:
@@ -36,7 +30,12 @@ With that in mind, we set out to design a device that would make it easier for i
 ## Design
 The SimpleStrings device is designed to attach directly to the neck of a guitar (this prototype was built for a Fender Squier Stratocaster). Its working area covers **4 frets at a time**, but the device can be repositioned in between songs to **5 different positions** along the guitar neck. This means that, if used with a standard guitar capo, SimpleStrings can be used to play music in any desired key.
 
-Colored buttons along the bottom of the device TODO
+{:refdef: style="text-align: center;"}
+![asdf](/assets/images/simple-strings/simplestrings-with-capo.png){: width="40%" style="padding: 0% 5% 0% 0%;" }
+![asdf](/assets/images/simple-strings/simplestrings-with-capo.png){: width="40%" style="padding: 0% 0% 0% 5%;"}
+{: refdef}
+
+Colored buttons along the bottom of the device are used to 
 No need to hold down button
 No need for complex hand positions
 15 chords available at a time
@@ -82,14 +81,4 @@ In order to complete the entire design process from conceptual design to prototy
 
 
 And finally, here's an extended cut of the project video!
-<center>
-<iframe
-    width="75%"
-    height="640"
-    src="https://www.youtube.com/embed/d3h6AYNHfU4"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
->
-</iframe>
-</center>
+{% include youtube.html video_id="d3h6AYNHfU4" width="75%"%}
