@@ -24,7 +24,9 @@
 		</header>
 		{% if page.image %}
 			{% if page.imagewidth != 0 %}
-				<span class="image main"><center><img src="{{ site.baseurl }}/{{ page.image }}" width="{{ page.imagewidth }}" alt=""/></center></span>
+					<span class="image main">
+						<img src="{{ site.baseurl }}/{{ page.image }}" width="{{ page.imagewidth }}" alt=""/>
+					</span>
 			{% endif %}
 		{% endif %}
 		{{ content }}

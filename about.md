@@ -3,6 +3,7 @@ layout: post
 title: About Me
 description:
 image: assets/images/about/main.jpg
+imagewidth: 100%
 nav-menu: true
 ---
 

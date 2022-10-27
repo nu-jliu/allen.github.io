@@ -2,7 +2,7 @@
 layout: post
 title: SimpleStrings
 description: Purdue ME 2019 Capstone Project
-image: assets/images/simple-strings/main.png
+image: assets/images/simplestrings/main.png
 imagewidth: 0
 ---
 
@@ -33,28 +33,28 @@ In order to complete the entire design process from conceptual design to prototy
 The SimpleStrings device is designed to attach directly to the neck of a guitar (this prototype was built for a Fender Squier Stratocaster). Its working area covers **4 frets at a time**, but the device can be repositioned in between songs to **5 different positions** along the guitar neck. This means that, if used with a standard guitar capo, SimpleStrings can be used to play music in any desired key.
 
 {:refdef: style="text-align: center;"}
-![SimpleStrings attached to the guitar neck with a capo](/assets/images/simple-strings/simplestrings-with-capo.png){: width="40%" style="padding-right: 5%;" }
-![The fret range of the SimpleStrings device](/assets/images/simple-strings/fret-range.png){: width="40%" style="padding-bottom: 7.5%;"}
+![SimpleStrings attached to the guitar neck with a capo](/assets/images/simplestrings/simplestrings-with-capo.png){: width="40%" style="padding-right: 5%;" }
+![The fret range of the SimpleStrings device](/assets/images/simplestrings/fret-range.png){: width="40%" style="padding-bottom: 7.5%;"}
 {: refdef}
 
 When one of the colored buttons along the bottom of the device is pressed, 24 small gear motors inside the device are actuated to press down on the guitar strings in specific configurations, forming chords. The buttons do not need to be held down and there is no need to memorize/master complex hand positions, greatly facilitating the mechanical aspects of playing the guitar.
 
 {:refdef: style="text-align: center;"}
-![The underside of SimpleStrings](/assets/images/simple-strings/undercarriage.png){: width="40%" style="padding-right: 5%;" }
-![The fret range of the SimpleStrings device](/assets/images/simple-strings/micro-gearmotor.png){: width="40%"}
+![The underside of SimpleStrings](/assets/images/simplestrings/undercarriage.png){: width="40%" style="padding-right: 5%;" }
+![The fret range of the SimpleStrings device](/assets/images/simplestrings/micro-gearmotor.png){: width="40%"}
 {: refdef}
 
 5 colored buttons allow for 5 main chords to be stored at a time, and 2 "modifier" buttons can modify each of those chords for a little extra flair (ex: Am -> Am7 or D -> Dsus4). This allows the device to store up to **15 programmable chords at a time**. These chords are completely customizable through our custom chord programming application, which allows users to **select from 142 default chords or define any completely custom chord** in the 4 fret range. The currently programmed chords appear on the OLED screens on the top of the device.
 
 {:refdef: style="text-align: center;"}
-![Custom interface used for selecting the device's stored chords](/assets/images/simple-strings/chord-programming.png){: width="40%" style="padding-right: 5%;" }
-![OLED screens display the currently programmed chords and their modifiers](/assets/images/simple-strings/oled-screens.png){: width="25%" }
+![Custom interface used for selecting the device's stored chords](/assets/images/simplestrings/chord-programming.png){: width="40%" style="padding-right: 5%;" }
+![OLED screens display the currently programmed chords and their modifiers](/assets/images/simplestrings/oled-screens.png){: width="25%" }
 {: refdef}
 
 ### Characteristics/Functionality
 
 {:refdef: style="text-align: center;"}
-![Playing SimpleStrings](/assets/images/simple-strings/playing-simplestrings-1.png){: width="60%" }
+![Playing SimpleStrings](/assets/images/simplestrings/playing-simplestrings-1.png){: width="60%" }
 {: refdef}
 
 | **Battery Life** | ~3.5 hours of play time per battery |
@@ -65,11 +65,26 @@ When one of the colored buttons along the bottom of the device is pressed, 24 sm
 | **Weight**| 1.185 kg (user support is not necessary to keep the guitar from tipping with SimpleStrings attached) |
 
 {:refdef: style="text-align: center;"}
-![Physical characteristics of SimpleStrings](/assets/images/simple-strings/dimensions-and-weight.png){: width="75%" }
+![Physical characteristics of SimpleStrings](/assets/images/simplestrings/dimensions-and-weight.png){: width="75%" }
 {: refdef}
 
 ### Electrical Subsystem
 My primary responsibility. Explain TODO
+- Selecting components
+- Designing architecture to properly handle amount of IO
+    - Shift registers to control motor grid
+- Converters to handle the proper voltage
+- OLED screens, I2C multiplexer due to address conflicts
+- Designed custom PCBs in KiCAD
+
+{:refdef: style="text-align: center;"}
+![Custom PCB 1](/assets/images/simplestrings/board-i.png){: width="40%" style="padding-bottom: 0.5%; padding-right: 1.25%"}
+![Custom PCB 2](/assets/images/simplestrings/board-ii.png){: width="40%" style="padding-left: 1.25%"}
+{: refdef}
+
+{:refdef: style="text-align: center;"}
+![Assembled PCBs with components](/assets/images/simplestrings/assembled-electronics.jpg){: width="60%" }
+{: refdef}
 
 
 ## Future Improvements
@@ -79,9 +94,14 @@ Our own improvements as well as feedback from music therapists.
 - Indication of which chords is played
 - Height is very cumbersome (insert pictures)
 
+{:refdef: style="text-align: center;"}
+![Possible PCB height reduction](/assets/images/simplestrings/pcb-height-reduction.png){: width="40%" style="padding-right: 1.25%"}
+![Possible motor height reduction](/assets/images/simplestrings/motor-height-reduction.png){: width="35.5%" style="padding-left: 1.25%"}
+{: refdef}
 
-
-
+{:refdef: style="text-align: center;"}
+![Possible total height reduction](/assets/images/simplestrings/total-height-reduction.png){: width="40%"}
+{: refdef}
 
 
 And finally, here's an extended cut of the project video!
