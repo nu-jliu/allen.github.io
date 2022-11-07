@@ -1,4 +1,6 @@
-{% if 'posts' == site.tiles-source %}
+{% if 'projects' == site.tiles-source %}
+    {% assign tiles = site.projects | sort: "order" %}
+{% elsif 'posts' == site.tiles-source %}
     {% assign tiles = site.posts %}
 {% elsif 'pages' == site.tiles-source %}
     {% assign tiles = site.html_pages | where_exp: "item", "item.show_tile != false" %}

@@ -1,9 +1,10 @@
 ---
-layout: post
+layout: project
 title: SimpleStrings
 description: Purdue ME 2019 Capstone Project
 image: assets/images/simplestrings/main.png
 imagewidth: 0
+order: 997
 ---
 
 Mechanical engineering students at Purdue University participate in a semester long capstone project in teams of six. The goal of the project is to propose, design, and produce a prototype of a product to solve a problem of the team's choice. My team decided to combine our experience with mechanical, electrical, and software engineering with our passion for music to create **SimpleStrings**, an assistive guitar playing device.

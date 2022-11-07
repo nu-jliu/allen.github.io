@@ -1,9 +1,10 @@
 ---
-layout: post
+layout: project
 title: Industrial Automation Consulting
 description: PLC, SCADA, HMI, Databases, & More
 image: assets/images/industrial-automation/main.jpg
 imagewidth: 50%
+order: 998
 ---
 
 From August 2019 to August 2022, I consulted as a part of the automation team at **[DMC, Inc](https://www.dmcinfo.com/)**. Our task was to help our clients with anything related to industrial automation. While we worked with a wide variety of sometimes unexpected technologies, our work usually fell into one of the following categories:
