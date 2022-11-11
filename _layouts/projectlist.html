@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+    {% include head.html %}
+
+    <body>
+
+        {% include header.html %}
+
+        <section id="banner" class="projectlist">
+            <div class="inner">
+                <span class="image">
+                    <img src="{{ site.baseurl }}/{{ page.image }}" alt="">
+                </span>
+                <header class="major">
+
+                    <h1>{{ page.title }}</h1>
+
+                </header>
+                <div class="content">
+
+                    {{ page.description }}
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Main -->
+        <div id="main">
+
+            <!-- One -->
+            {% if 'projects' == site.tiles-source %}
+                {% assign tiles = site.projects | sort: "order" %}
+            {% elsif 'posts' == site.tiles-source %}
+                {% assign tiles = site.posts %}
+            {% elsif 'pages' == site.tiles-source %}
+                {% assign tiles = site.html_pages | where_exp: "item", "item.show_tile != false" %}
+            {% endif %}
+            <section id="one" class="spotlightsprojects">
+                {% for tile in tiles %}
+                    <section>
+                        <a href="{{ tile.url }}" class="image">
+                            <img src="{{ tile.image }}" alt="" data-position="center center" />
+                        </a>
+                        <div class="content">
+                            <div class="inner">
+                                <!--<header class="major">
+                                    <h3>{{ tile.title }}</h3>
+                                </header>-->
+                                <ul class="actions">
+                                    <li><a href="{{ tile.url }}" class="button next">{{ tile.title }}</a></li>
+                                </ul>
+                                <p>{{ tile.description }}</p>
+                            </div>
+                        </div>
+                    </section>
+                {% endfor %}
+            </section>
+            
+        </div>
+
+    {% include footer.html %}
+
+</body>
+
+</html>

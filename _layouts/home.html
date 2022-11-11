@@ -13,8 +13,8 @@
     {% include header.html %}
 
     <!-- Banner -->
-    <section id="banner">
-    <!--<section id="banner" class="major">-->
+    
+    <section id="banner" class="home">
         <div class="inner">
             <!--<header class="major">
                 <h1>{{ page.landing-title }}</h1>
@@ -70,10 +70,15 @@
         <!-- Two -->
         {% include tiles.html %}
 
+        <section id="breaksection">
+            <svg width="100%" height="100%">
+                <rect width="100%" height="1%"/>
+            </svg>
+        </section>
     </div>
     <div id="allprojectsbutton">
         <ul class="actions">
-            <li><a href="projects.html" class="button">All Projects</a></li>
+            <li><a href="projects.html" class="button next">All Projects</a></li>
         </ul>
     </div>
 
