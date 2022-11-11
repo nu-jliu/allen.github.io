@@ -101,7 +101,7 @@ After completing the design, ordering, and receiving the boards, I soldered all 
 
 
 ## Future Improvements
-Our design was only ever intended to be a first prototype of the SimpleStrings system, and their certainly were areas for improvement we would like to tackle if we pursued a next iteration. Some of our own desired improvements, as well as those we collected from the music therapists we talked to, are listed below.
+Our design was only ever intended to be a first prototype of the SimpleStrings system, and there certainly were areas for improvement we would like to tackle if we pursued a next iteration. Some of our own desired improvements, as well as those we collected from the music therapists we talked to, are listed below.
 
 **1. The height of the device is very cumbersome.**
 
