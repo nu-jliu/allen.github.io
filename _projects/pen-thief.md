@@ -20,9 +20,13 @@ After successfully completing the challenge, a few of my fellow cohort members a
 
 ### How It Worked
 
-The D435i provides both color and depth information. To find the pen's location, I could determine the pixels representing the pen in the image by thresholding the color image based on a range of HSV values which represented the pen's color. Then I could find a contour around these pixels and find the centroid of that contour to determine the pen's location in the image. The depth data from the D435i completed the pen's 3D coordinates in the camera's reference frame.
+The D435i provides both color and depth information. To find the pen's location, I could determine the pixels representing the pen in the image by thresholding the color image based on a range of HSV values which represented the pen's color. Then I could find a contour around these pixels and find the 2D coordinates of the centroid of that contour in the image. Finally, the depth data from the D435i gave the last coordinate needed to describe the pen's 3D coordinates in the camera's reference frame.
 
-To determine the location of the pen in the robot's reference frame, I added a calibration routine. In this routine, I held the pen up to the robot's gripper. I then used forward kinematics to determine the position of the robot's gripper in the robot's frame. With the assumption that the camera was oriented horizontally and at a 90° angle to the robot arm, a comparison of the camera's pen coordinates and the robot's gripper position allowed me to determine a transformation between the camera and the robot reference frames.
+{:refdef: style="text-align: center;"}
+![Possible total height reduction](/assets/images/pen-thief/pen-tracking.gif){: width="50%"}
+{: refdef}
+
+To determine the location of the pen in the robot's reference frame, I added a calibration routine. In this routine, I held the pen up to the robot's gripper. I then used forward kinematics to determine the position of the robot's gripper in the robot's frame. I simplified the calibration by assuming that the camera was oriented horizontally and at a 90° angle to the robot arm. With that assumption, a comparison of the camera's pen coordinates and the robot's gripper position allowed me to determine a transformation between the camera and the robot reference frames.
 
 Knowing this information, I could then determine the location of the pen in the robot's reference frame regardless of where I placed it. From there, a simple algorithm adjusted the PincherX 100's waist angle and executed a trajectory to move the gripper to the pen. Once it was within a tolerance, the gripper closed on the pen.
 
