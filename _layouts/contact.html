@@ -41,7 +41,7 @@
 			<section>
 				<div class="contact-method">
 					<span class="icon alt fa-home"></span>
-					<h3>Address</h3>
+					<h3>Location</h3>
 					<span>
 					{% if site.street_address %}
 					    {{ site.street_address }}<br />
@@ -53,10 +53,10 @@
 					    {{ site.state }} 
 					{% endif %}
 					{% if site.zip_code %}
-					    {{ site.zip_code }}<br />
+					    {{ site.zip_code }}
 					{% endif %}
 					{% if site.country %}
-					    {{ site.country }}
+						<br /> {{ site.country }}
 					{% endif %}
 					</span>
 				</div>

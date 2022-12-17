@@ -6,10 +6,10 @@ description: Hi! My name is Nick, welcome to my portfolio.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ngmor.github.io" # the base hostname & protocol for your site
 author:
-street_address: 1200 Simpson St Apt 2E
-city: Evanston
+street_address:
+city: Chicago
 state: IL
-zip_code: 60210
+zip_code:
 country: United States of America
 phone: (937) 776-0843
 contact_form_id: xeqdvdwn
