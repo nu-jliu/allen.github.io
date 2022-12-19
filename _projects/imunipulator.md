@@ -43,7 +43,7 @@ TODO
 <br>
 
 {:refdef: style="text-align: center;"}
-![Design Diagram](/assets/images/imunipulator/team.jpg){: width="50%" }
+![The full IMUGripulator team](/assets/images/imunipulator/team.jpg){: width="50%" }
 {: refdef}
 {:refdef: style="text-align: center;"}
 _The full IMUGripulator team!_
