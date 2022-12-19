@@ -62,3 +62,13 @@ _Stab attack_
 <br>
 
 {% include youtube.html video_id="videoseries?list=PLIRnNSZSnm7PIFkpH2Ec_6OCljCXwIZlE" width="75%" %}
+
+<br>
+<br>
+
+{:refdef: style="text-align: center;"}
+![The Attack of the Franka team](/assets/images/attack-of-the-franka/team.jpg){: width="75%" }
+{: refdef}
+{:refdef: style="text-align: center;"}
+_The Attack of the Franka team!_
+{: refdef}
