@@ -9,9 +9,9 @@ order: 995
 
 [GitHub Repository](https://github.com/hang-yin/IMUnipulator)
 
-Students in Northwestern University's CE346 Microprocessor System Design course complete a final project, with the goal of designing a microcontroller device to achieve some creative task. For the project, we programmed a [**micro:bit v2**](https://tech.microbit.org/hardware/2-0-revision/) (based on the [**Nordic nRF52833 SoC**](https://www.nordicsemi.com/Products/nRF52833)) in C.
+Students in Northwestern University's CE346 Microprocessor System Design course complete a final project, with the goal of designing a microcontroller device to achieve some creative task. For the project, we programmed a [**micro:bit v2**](https://tech.microbit.org/hardware/2-0-revision/) (based on the [**Nordic nRF52833 SoC**](https://www.nordicsemi.com/Products/nRF52833)) in **C**.
 
-Our team, IMUnipulator, decided to collaborate with another group, [EMGripper](https://github.com/katie-hughes/emgripper), to create the **IMUGripulator**! This device was a 2-DoF robotic arm with joints controlled by a 9-DoF inertial measurement unit (IMU) attached to someone's hand - IMUnipulator's portion of the project. The end-effector of the arm was a gripper controlled by an EMG sensor and force-sensitive resistor (FSR) - EMGripper's portion of the project.
+Our team, **IMUnipulator**, decided to collaborate with another group, [**EMGripper**](https://github.com/katie-hughes/emgripper), to create the **IMUGripulator**! This device was a 2-DoF robotic arm with joints controlled by a 9-DoF inertial measurement unit (IMU) attached to someone's hand (IMUnipulator's portion of the project). The end-effector of the arm was a gripper controlled by an EMG sensor and force-sensitive resistor (EMGripper's portion of the project).
 
 Here's a demo of the full device:
 
@@ -77,7 +77,7 @@ The IMUnipulator was designed to have several different end-effector options tha
 
 - **Marker Holder** - this end effector held a whiteboard marker so you could draw any blocky pictures you want - since the arm only moves in one axis at a time.
 
-- **Electromagnet Hand** - use the Force to pick up objects! Well, metal ones at least.
+- **Electromagnet Hand** - use the Force to pick up objects! Well, metal ones at least, since the force is electromagnetism.
 
 {:refdef: style="text-align: center;"}
 ![Marker holder end-effector](/assets/images/imunipulator/ee-marker-cad.png){: width="45%" style="padding-right: 5%;" }
