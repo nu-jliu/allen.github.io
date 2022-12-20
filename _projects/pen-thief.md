@@ -4,8 +4,10 @@ title: OpenCV-Powered Pen Thief
 description: PincherX 100 uses Computer Vision to Steal Pens
 image: assets/images/pen-thief/main.gif
 imagewidth: 0
-order: 996
+order: 997
 ---
+
+[GitHub Repository](https://github.com/ngmor/pen-challenge)
 
 As a start to the MS in Robotics program at Northwestern University, my fellow cohort members and I participated in an orientation/hackathon in which we learned about several essential topics in the world of robotics. The hackathon culminated with a challenge to use **computer vision** and a **robotic arm** to reach out and snatch a Northwestern-purple pen from an unsuspecting human's (or robot's) grasp.
 
