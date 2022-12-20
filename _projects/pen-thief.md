@@ -7,6 +7,8 @@ imagewidth: 0
 order: 997
 ---
 
+[GitHub Repository](https://github.com/ngmor/pen-challenge)
+
 As a start to the MS in Robotics program at Northwestern University, my fellow cohort members and I participated in an orientation/hackathon in which we learned about several essential topics in the world of robotics. The hackathon culminated with a challenge to use **computer vision** and a **robotic arm** to reach out and snatch a Northwestern-purple pen from an unsuspecting human's (or robot's) grasp.
 
 To complete this challenge, I used an [**Intel RealSense D435i**](https://www.intelrealsense.com/depth-camera-d435i/) along with the **PyRealSense** and **OpenCV** libraries to detect the pen in the robot's workspace via its color. Then I used a [**Trossen PincherX-100 Robot Arm**](https://www.trossenrobotics.com/docs/interbotix_xsarms/specifications/px100.html) with its Python API and the [**Modern Robotics**](https://github.com/NxRLab/ModernRobotics) library to grab the pen.

@@ -9,7 +9,7 @@ order: 995
 
 [GitHub Repository](https://github.com/ngmor/attack-of-the-franka)
 
-Students in Northwestern University's ME495 Embedded System in Robotics class participate in a creative final project. The project's goal is essentially to use **ROS2** to control a 7-DoF **Franka Emika Panda** robotic arm to complete a task.
+Students in Northwestern University's ME495 Embedded System in Robotics class participate in a creative final project. The project's goal is to use **ROS2** to control a 7-DoF **Franka Emika Panda** robotic arm to complete a task.
 
 Our team decided to program the robot (which we dubbed "Franakin Skywalker") to autonomously wield a lightsaber to help the Republic fight the Separatists. The robot must draw the lightsaber from a sheath and swing it to knock over members of the Separatist Army, represented by red blocks placed upright on a work area table near the Panda. The Panda will also need to avoid the blocks representing members of the Republic, marked by upright blue blocks. The setup of the allies and enemies in the work area is configured arbitrarily by a human. The system uses an **Intel RealSense D435i** and **OpenCV** to detect and differentiate the blocks.
 
@@ -45,10 +45,10 @@ Especially important was the robot table tag, the large tag shown in the left of
 ![Published frames of a single ally and enemy](/assets/images/attack-of-the-franka/rviz-camera-simple.png){: width="50%"}
 {: refdef}
 {:refdef: style="text-align: center;"}
-_The TF tree and camera feed with overlayed frames, as represented in RVIZ._
+_The TF tree and camera feed with overlaid frames, as represented in RVIZ._
 {: refdef}
 
-Finally, the camera_processor node subscribes to the color and aligned depth image data and processes it using OpenCV. The color data is converted into the HSV color space, which helps reduce problems caused by lighting changes on color detection. A certain range of HSV values representing red colors is defined as "enemy" and likewise another blue range defines "allies."
+Finally, the camera_processor node subscribes to the color and aligned depth image data and processes it using OpenCV. The color data is converted into the HSV color space, which helps reduce problems in color detection caused by lighting changes. A certain range of HSV values representing red colors is defined as "enemy" and likewise another blue range defines "allies."
 
 Pixels that fall into these ranges are grouped by [**contouring**](https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html), and each contour is considered a detected object. [Opening and closing morphological transformations](https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html) are applied on the contours to improve their quality. Then, the centroid of each contour is calculated, which is considered the detected object's position in the camera feed. This pixel position can be combined with the depth data for that pixel and deprojected into 3D real world coordinates of the object in the camera's reference frame. Knowing the position of the object relative to the camera reference frame means that, since we already know the position of the robot relative to the camera, we can now determine the position of the detected objects relative to the robot.
 
@@ -73,7 +73,7 @@ Our API handled:
 - Interfacing with the **move_action** action to plan a collision-free trajectory to the desired joint positions
 - Interfacing with the **execute_trajectory** action to execute previously planned trajectories
 
-The API is implemented as Python class, which is used inside of the **robot_control** node that handles all motion.
+The API is implemented as a Python class, which is used inside of the Python **robot_control** node that handles all motion.
 
 {:refdef: style="text-align: center;"}
 ![Collision objects represented in RVIZ](/assets/images/attack-of-the-franka/rviz-collision-objects.png){: width="50%"}
@@ -82,26 +82,24 @@ The API is implemented as Python class, which is used inside of the **robot_cont
 _The planning scene represented in RVIZ, with the lightsaber grasped in the Panda's grippers._
 {: refdef}
 
-By adding **collision objects** to the planning scene, the MoveIt framework knows that the robot cannot move into those objects, thus avoiding collisions. As shown in the above image, we add tables, walls, and the ceiling into the planning scene. We also have to add the lightsaber as a special **attached collision object** - meaning it moved with the robot and is allowed to collide with certain robot links (like the end effector in which it is grasped).
+By adding **collision objects** to the planning scene, the MoveIt framework knows that the robot cannot move into those objects, thus avoiding collisions. As shown in the above image, we add tables, walls, and the ceiling into the planning scene. We also add the lightsaber as a special **attached collision object** - meaning it moved with the robot and is allowed to collide with certain robot links (like the end-effector in which it is grasped).
 
-The robot's first task is to draw its lightsaber from a fixed sheath attached to its table. In order to do this, we plan a trajectory to the fixed starting position of the lightsaber, avoiding collisions by adding the lightsaber as a collision object in the planning scene. Once grasped, the lightsaber changes to an attached collision object so collision-free trajectory plans would account for it.
+The robot's first task is to draw its lightsaber from a fixed sheath attached to its table. In order to do this, we plan a trajectory to the fixed starting position of the lightsaber, avoiding collisions by adding the lightsaber as a collision object in the planning scene. Once grasped, the lightsaber changes to an attached collision object so collision-free trajectory plans account for it.
 
 {% include youtube.html video_id="sYgyu93i11Q" width="50%" %}
 {:refdef: style="text-align: center;"}
-_Picking up the lightsaber and left swipe attack._
+_Picking up the lightsaber and a left swipe attack._
 {: refdef}
 
-From there, the robot has to plan its attacks. Placement of the enemies and allies is arbitrary within the work area, so the robot_control node relies on the published transformations from the CV system to locate the detected objects.
+From there, the robot has to plan its attacks. The robot_control node relies on the published transformations from the CV system to locate the detected objects. It prioritizes protecting its allies over knocking over enemies, so a single attack style is not sufficient to successfully vanquish most enemies. The Panda instead has an option of three attack styles: a **left swipe**, a **right swipe**, and a **stab**. These attack styles are prioritized in that order.
 
-The robot prioritizes protecting its allies over knocking over enemies. Because of this, one attack style is not sufficient to successfully vanquish most enemies. The Panda instead has an option of three attack styles: a **left swipe**, a **right swipe**, and a **stab**. These attack styles are prioritized in that order.
+The process for selecting an attack style has two checks. First, the robot_control node uses a simple geometric check - using the position of the objects from CV - to determine if a selected attack style will cause an enemy to fall into an ally. Secondly, the node attempts to plan motion to attack in that selected attack style. For this check, the allies are added as collision objects in the planning scene. If a collision were to occur during the motion, this plan fails.
 
-The process for selecting an attack style has two checks. First, the robot_control node uses a simple geometric check - using the position of the object transformations - to determine if a selected attack style will cause an enemy to fall into an ally. Secondly, the node attempts to plan motion to attack in that selected attack style. For this check, the allies are added as collision objects in the planning scene. If a collision were to occur during the motion, this plan will fail.
-
-If either of these checks fail for a particular attack style, the robot_control node will attempt the same checks on the next attack style. If no attack style would successfully knock down an enemy without affecting an ally, the robot will simply not attack that enemy.
+If either of these checks fail for a particular attack style, the robot_control node attempts the same checks on the next attack style. If no attack style would successfully knock down an enemy without affecting an ally, the robot simply does not attack that enemy.
 
 {% include youtube.html video_id="b1iG8R2p9XA" width="50%" %}
 {:refdef: style="text-align: center;"}
-_Right swipe attack._
+_A right swipe attack._
 {: refdef}
 
 Once an attack style is selected, the robot_control node will plan and execute a trajectory for that attack. These attacks use several joint state waypoints, adjusted for the position of the enemy, in order to ensure the motion planning reliably completes.
@@ -110,7 +108,7 @@ If multiple enemies are present in the scene, the robot will attack each one fro
 
 {% include youtube.html video_id="MlOFW1IYV2c" width="50%" %}
 {:refdef: style="text-align: center;"}
-_Stab attack._
+_A stab attack._
 {: refdef}
 
 ## Future Work
