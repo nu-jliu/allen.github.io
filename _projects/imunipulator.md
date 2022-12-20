@@ -62,8 +62,27 @@ _Testing out the servo driver by moving the two servos in unison through their r
 - **LED Matrix** - a driver to control the micro:bit's built-in LED matrix, which was used to indicate the arm's current sensitivity level.
 
 ## Mechanical Hardware
+Although the focus of the project was the electrical and software design, the team also did some mechanical design, primarily for 3D printed components. All of these components were printed out of PETG on a Prusa i3 MK2.
 
+### Base
+Some of the arm components were already provided by a small robot arm kit that one of the EMGripper team had on hand. But in order to use these in the configuration we wanted, we had to design a simple base. It was constructed out of 1-inch 80-20 bars to provide solid weighted base, and a custom adapter was designed to mate the arm components with the 80-20.
 
+TODO - pictures
+
+### End-Effector Options
+The IMUnipulator was designed to have several different end-effector options that can be quickly switched out.
+
+- **Marker Holder** - this end effector held a whiteboard marker so you could draw any blocky pictures you want - since the arm only moves in one axis at a time.
+
+TODO - picture
+
+- **Electromagnet Hand** - use the Force to pick up objects! Well, metal ones at least.
+
+TODO - picture
+
+- **EMGripper** - by far our favorite end-effector. This team's project uses an EMG sensor to detect muscle contractions in the user's arm and close a gripper using a servo. A force sensitive resistor on the gripper prongs prevents the gripper from continuing to close once it reaches a force limit.
+
+TODO - video?
 
 <br>
 <br>
