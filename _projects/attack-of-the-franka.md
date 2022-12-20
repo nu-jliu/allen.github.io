@@ -7,18 +7,15 @@ imagewidth: 0
 order: 995
 ---
 
-TODO - GitHub
+[GitHub Repository](https://github.com/ngmor/attack-of-the-franka)
 
 Students in Northwestern University's ME495 Embedded System in Robotics class participate in a creative final project. The project's goal is essentially to use **ROS2** to control a 7-DoF **Franka Emika Panda** robotic arm to complete a task.
 
-Our team decided to use an **Intel RealSense D435i** camera along with the Panda to autonomously wield a lightsaber against objects in its workspace designated as "enemies," while protecting objects in the workspace designated as "allies." The objects were distinguished by their color, with red objects considered enemies and blue objects considered allies.
+Our team decided to program the robot (which we dubbed "Franakin Skywalker") to autonomously wield a lightsaber to help the Republic fight the Separatists. The robot must draw the lightsaber from a sheath and swing it to knock over members of the Separatist Army, represented by red blocks placed upright on a work area table near the Panda. The Panda will also need to avoid the blocks representing members of the Republic, marked by upright blue blocks. The setup of the allies and enemies in the work area is configured arbitrarily by a human. The system uses an **Intel RealSense D435i** and **OpenCV** to detect and differentiate the blocks.
 
 {% include youtube.html video_id="bU8aNL9BQdQ" width="75%" %}
 
 <br>
-
-## Problem Definition
-TODO - Franakin Skywalker?
 
 ## Team Organization
 In order to complete this project in the span of just a few weeks, our team assigned roles and areas of focus for development (although each of us contributed to both the Computer Vision and Motion development). The team consisted of:
@@ -116,8 +113,24 @@ If multiple enemies are present in the scene, the robot will attack each one fro
 _Stab attack._
 {: refdef}
 
-<br>
-<br>
+## Future Work
+
+**1. Improving motion planning robustness.**
+
+The most impactful future improvement to this project would be to increase the robustness of the motion planning algorithms. With arbitrary enemy and ally positions, there are many scenarios and edge cases, not all of which the team was able to test. Planning for more of these edge cases and better defining specific motions to handle them would improve the performance of the system. Adding even more possible attack styles could also reduce the number of enemies that are unreachable due to configuration of allies in the work area.
+
+**2. Adding more object detection methods.**
+
+This project was based on color detection as a central method of detecting and differentiating object types. It would be an exciting challenge to expand this object detection capability. For example, one could use machine learning to analyze the image and detect multiple different types of objects that represent allies and enemies based on a training dataset.
+
+## Conclusions
+This project was a great opportunity to learn motion control of a real robot through ROS and unify it with computer vision.
+
+We learned several lessons through this project. Environmental factors such as lighting can have a heavy effect on computer vision systems, and the systems must be designed robustly enough to be able to handle different conditions that they might encounter. Furthermore, differences between real hardware and simulation are crucial to understand, especially when it comes to motion. Real life systems do not behave perfectly, and tolerances that can be achieved in simulation may be unattainable in reality. We encountered this especially when commanding fast motions of the arm, which produced larger errors in position than appeared in simulation.
+
+Overall I'm looking forward to more chances to design multi-faceted robotic systems with ROS!
+
+If you'd like to see more videos of the project, here's a playlist of attack scenarios:
 
 {% include youtube.html video_id="videoseries?list=PLIRnNSZSnm7PIFkpH2Ec_6OCljCXwIZlE" width="75%" %}
 
