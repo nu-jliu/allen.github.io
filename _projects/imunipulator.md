@@ -67,22 +67,26 @@ Although the focus of the project was the electrical and software design, the te
 ### Base
 Some of the arm components were already provided by a small robot arm kit that one of the EMGripper team had on hand. But in order to use these in the configuration we wanted, we had to design a simple base. It was constructed out of 1-inch 80-20 bars to provide solid weighted base, and a custom adapter was designed to mate the arm components with the 80-20.
 
-TODO - pictures
+{:refdef: style="text-align: center;"}
+![CAD of the base assembly](/assets/images/imunipulator/base-cad.png){: width="50%" style="padding-right: 5%; padding-bottom: 2.5%;" }
+![Base assembly fully constructed](/assets/images/imunipulator/base-complete.jpg){: width="30%"}
+{: refdef}
 
 ### End-Effector Options
 The IMUnipulator was designed to have several different end-effector options that can be quickly switched out.
 
 - **Marker Holder** - this end effector held a whiteboard marker so you could draw any blocky pictures you want - since the arm only moves in one axis at a time.
 
-TODO - picture
-
 - **Electromagnet Hand** - use the Force to pick up objects! Well, metal ones at least.
 
-TODO - picture
+{:refdef: style="text-align: center;"}
+![Marker holder end-effector](/assets/images/imunipulator/ee-marker-cad.png){: width="45%" style="padding-right: 5%;" }
+![Electromagnet hand end-effector](/assets/images/imunipulator/ee-electromagnet-cad.png){: width="40%"}
+{: refdef}
 
 - **EMGripper** - by far our favorite end-effector. This team's project uses an EMG sensor to detect muscle contractions in the user's arm and close a gripper using a servo. A force sensitive resistor on the gripper prongs prevents the gripper from continuing to close once it reaches a force limit.
 
-TODO - video?
+{% include youtube.html video_id="xFMn450j_hQ" width="50%" %}
 
 <br>
 <br>
