@@ -4,7 +4,7 @@ title: OpenCV-Powered Pen Thief
 description: PincherX 100 uses Computer Vision to Steal Pens
 image: assets/images/pen-thief/main.gif
 imagewidth: 0
-order: 997
+order: 995
 ---
 
 [GitHub Repository](https://github.com/ngmor/pen-challenge)

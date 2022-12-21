@@ -4,7 +4,7 @@ title: IMUnipulator
 description: Gesture-controlled robot arm on a microcontroller
 image: assets/images/imunipulator/main.gif
 imagewidth: 0
-order: 995
+order: 993
 ---
 
 [GitHub Repository](https://github.com/hang-yin/IMUnipulator)

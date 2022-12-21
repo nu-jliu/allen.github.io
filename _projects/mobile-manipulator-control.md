@@ -4,7 +4,7 @@ title: Mobile Manipulator Control
 description: Simulating a Kuka Youbot using screw theory
 image: assets/images/mobile-manipulator-control/main.gif
 imagewidth: 0
-order: 995
+order: 997
 ---
 
 [GitHub Repository](https://github.com/ngmor/robotic-manipulation-final)

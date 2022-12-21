@@ -4,7 +4,7 @@ title: Attack of the Franka
 description: Franka Emika Panda wields a lightsaber
 image: assets/images/attack-of-the-franka/main.gif
 imagewidth: 0
-order: 994
+order: 992
 ---
 
 [GitHub Repository](https://github.com/ngmor/attack-of-the-franka)

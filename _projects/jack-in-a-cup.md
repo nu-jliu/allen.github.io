@@ -4,7 +4,7 @@ title: Jack in a Cup Simulation
 description: Lagrangian Dynamics in Python
 image: assets/images/jack-in-a-cup/main.gif
 imagewidth: 0
-order: 995
+order: 998
 ---
 
 [GitHub Repository](https://github.com/ngmor/machine-dynamics-final)
