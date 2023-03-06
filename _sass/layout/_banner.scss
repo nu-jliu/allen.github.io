@@ -11,6 +11,7 @@
 		@include vendor('background-image', 'url("../images/banner.jpg")');
 		@include vendor('display', 'flex');
 		@include padding(4em, 0, (2em, 0, 0, 0));
+		text-align: center;
 		background-attachment: fixed;
 		background-position: center;
 		background-repeat: no-repeat;
@@ -23,6 +24,8 @@
 		min-height: 5em;
 		position: relative;
 		top: -3.25em;
+
+		
 
 		&:after {
 			@include vendor('transition', 'opacity #{_duration(banner)} ease');
@@ -97,9 +100,12 @@
 
 				}
 
-				img {
-					min-width: 100%;
-					border-radius: 50%;
+				
+				a {
+					img {
+						max-width: 5em;
+						border-radius: 50%;
+					}
 				}
 			}
 		}
