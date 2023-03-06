@@ -9,7 +9,7 @@ order: 992
 
 [GitHub Repository](https://github.com/ngmor/attack-of-the-franka)
 
-Students in Northwestern University's ME495 Embedded System in Robotics class participate in a creative final project. The project's goal is to use **ROS2** to control a 7-DoF **Franka Emika Panda** robotic arm to complete a task.
+Students in Northwestern University's ME495 Embedded System in Robotics class participate in a creative final project. The project's goal is to use **ROS 2** to control a 7-DoF **Franka Emika Panda** robotic arm to complete a task.
 
 Our team decided to program the robot (which we dubbed "Franakin Skywalker") to autonomously wield a lightsaber to help the Republic fight the Separatists. The robot must draw the lightsaber from a sheath and swing it to knock over members of the Separatist Army, represented by red blocks placed upright on a work area table near the Panda. The Panda will also need to avoid the blocks representing members of the Republic, marked by upright blue blocks. The setup of the allies and enemies in the work area is configured arbitrarily by a human. The system uses an **Intel RealSense D435i** and **OpenCV** to detect and differentiate the blocks.
 
@@ -24,9 +24,9 @@ In order to complete this project in the span of just a few weeks, our team assi
 | **Nick Morales** - Systems Integrator, CV Development | **Meg Sindelar** - Reliability Engineer, Motion Development |
 
 ## Computer Vision
-The CV system consists of a few ROS2 packages working in concert and tied together via a Python **camera_processor** node.
+The CV system consists of a few ROS 2 packages working in concert and tied together via a Python **camera_processor** node.
 
-First, the [ROS2 wrapper for Intel RealSense devices](https://github.com/IntelRealSense/realsense-ros) is used to connect to the RealSense and publish color image data and depth data that is aligned with the color image camera reference frame.
+First, the [ROS 2 wrapper for Intel RealSense devices](https://github.com/IntelRealSense/realsense-ros) is used to connect to the RealSense and publish color image data and depth data that is aligned with the color image camera reference frame.
 
 {:refdef: style="text-align: center;"}
 ![Camera feed of a single ally and enemy](/assets/images/attack-of-the-franka/camera-feed-simple.png){: width="50%"}
@@ -35,7 +35,7 @@ First, the [ROS2 wrapper for Intel RealSense devices](https://github.com/IntelRe
 _A single ally and a single enemy, as seen from the RealSense's camera feed._
 {: refdef}
 
-Next, the April Robotics [AprilTag library](https://github.com/AprilRobotics/apriltag) is used along with Christian Rauch's ROS2 AprilTag [node](https://github.com/christianrauch/apriltag_ros) and [messages](https://github.com/christianrauch/apriltag_msgs) packages to detect **AprilTags** within the camera's feed. These fiducial markers of known size allow for determination of the 6-DoF pose of the object to which they are attached.
+Next, the April Robotics [AprilTag library](https://github.com/AprilRobotics/apriltag) is used along with Christian Rauch's ROS 2 AprilTag [node](https://github.com/christianrauch/apriltag_ros) and [messages](https://github.com/christianrauch/apriltag_msgs) packages to detect **AprilTags** within the camera's feed. These fiducial markers of known size allow for determination of the 6-DoF pose of the object to which they are attached.
 
 This project employs three tags - one to determine the location of the robot's table and two to determine the bounds of the work area. In order to improve accuracy and consistency of the detected tags, we created a calibration process. Each tag's transformation is sampled 100 times and the average taken and broadcast by the camera_processor node. If any tag is obscured from the camera - for example by a falling enemy - this average transformation is still retained and the system operation is not affected.
 
