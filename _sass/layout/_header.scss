@@ -216,9 +216,12 @@
 
 		@include breakpoint(xsmall) {
 			.logo {
-				span {
+				strong {
 					display: none;
 				}
+				// span {
+				// 	display: none;
+				// }
 			}
 
 			nav {
