@@ -43,6 +43,8 @@
 			header {
 				position: relative;
 				z-index: 3;
+				@include vendor('transition', 'opacity 0.25s ease');
+				// @include vendor('transition', ('opacity 0.1s ease', 'font-size 0.1s ease'));
 			}
 
 			h3 {
@@ -93,6 +95,13 @@
 			&:hover {
 				&:before {
 					opacity: 0;
+				}
+				&:after {
+					opacity: 0;
+				}
+				header {
+					opacity: 0;
+					// font-size: 0em;
 				}
 			}
 
