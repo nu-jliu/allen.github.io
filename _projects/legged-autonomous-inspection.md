@@ -9,7 +9,7 @@ order: 989
 
 [GitHub Repository](https://github.com/ngmor/unitree_inspection)
 
-{% include youtube.html video_id="NxIXye_bk60" width="75%" %}
+{% include youtube.html video_id="onxPLXfmMvo" width="75%" %}
 
 <br>
 
@@ -34,4 +34,17 @@ _Demo Flowchart TODO._
 _System Diagram TODO._
 {: refdef}
 
-More information on this project coming soon!
+{% include youtube.html video_id="oz92rP-ztPk" width="50%" %}
+
+<br>
+
+{:refdef: style="text-align: center;"}
+![TODO](/assets/images/legged-autonomous-inspection/woof-bark-arf-ruff.jpg){: width="35%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_Reading dog words with the dog TODO._
+{: refdef}
+
+{% include youtube.html video_id="zDpLrAneXNg" width="50%" %}
+
+<br>
