@@ -76,9 +76,9 @@ Here's a video of the Nav2 stack working with the Unitree Go1 for autonomous nav
 ****
 
 ### Optical Character Recognition
-The second required subsystem is the visual text detection and recognition, referred to here as Optical Character Recognition (OCR). This project uses the Go1's onboard stereo cameras and two pre-trained machine learning models to accomplish this task.
+The second required subsystem is the visual text detection and recognition, referred to here as **Optical Character Recognition (OCR)**. This project uses the Go1's onboard stereo cameras and two pre-trained machine learning models to accomplish this task.
 
-In order to get image data from the Go1's onboard cameras, I wrote a [ROS 2 C++ wrapper](https://github.com/ngmor/unitree_camera) for the [**Unitree Camera SDK**](https://github.com/ngmor/UnitreecameraSDK) that uses [`image transport`](https://github.com/ros-perception/image_common/tree/ros2/image_transport) for image compression. This publishes raw, rectified, depth, and point cloud images from any of the Go1's five onboard cameras.
+In order to get image data from the Go1's onboard cameras, I wrote a [ROS 2 C++ wrapper](https://github.com/ngmor/unitree_camera) for the [**Unitree Camera SDK**](https://github.com/ngmor/UnitreecameraSDK) that uses [`image_transport`](https://github.com/ros-perception/image_common/tree/ros2/image_transport) for image compression. This publishes raw, rectified, depth, and point cloud images from any of the Go1's five onboard cameras.
 
 {:refdef: style="text-align: center;"}
 ![Stereo Rectified, Depth, and Point Cloud](/assets/images/legged-autonomous-inspection/camera-feeds.gif){: width="50%"}
@@ -87,7 +87,7 @@ In order to get image data from the Go1's onboard cameras, I wrote a [ROS 2 C++ 
 _Go1 head front camera feeds of stereo rectified and depth images and point cloud data._
 {: refdef}
 
-The first machine learning model uses a nueral network based on a [TensorFlow re-implementation](https://github.com/argman/EAST) of the [**Efficient and Accurate Scene Text Detector (EAST)**](https://arxiv.org/abs/1704.03155v2) model. This pipeline is designed to detect where text is located in a natural scene so that a text recognition model can parse it into characters. The EAST model provides bounding vertices for lines of text in arbitrary orientations, as shown by the green bounding rectangles in the image below.
+The first machine learning model uses a neural network based on a [TensorFlow re-implementation](https://github.com/argman/EAST) of the [**Efficient and Accurate Scene Text Detector (EAST)**](https://arxiv.org/abs/1704.03155v2) model. This pipeline is designed to detect where text is located in a natural scene so that a text recognition model can parse it into characters. The EAST model provides bounding vertices for lines of text in arbitrary orientations, as shown by the green bounding rectangles in the image below.
 
 {:refdef: style="text-align: center;"}
 ![Woof! Bark! Arf! Ruff!](/assets/images/legged-autonomous-inspection/woof-bark-arf-ruff.jpg){: width="35%"}
@@ -96,9 +96,9 @@ The first machine learning model uses a nueral network based on a [TensorFlow re
 _Making the dog read dog words._
 {: refdef}
 
-The second machine learning model uses a **convolutional recurrent nueral network (CRNN)** trained on the [MJSynth](https://www.robots.ox.ac.uk/~vgg/data/text/) and [SynthText](https://www.robots.ox.ac.uk/~vgg/data/scenetext/) datasets. It accepts the bounding vertices from the EAST model and parses the image cropped at those vertices into actual text, shown in red above.
+The second machine learning model uses a **convolutional recurrent neural network (CRNN)** trained on the [MJSynth](https://www.robots.ox.ac.uk/~vgg/data/text/) and [SynthText](https://www.robots.ox.ac.uk/~vgg/data/scenetext/) datasets. It accepts the bounding vertices from the EAST model and parses the image cropped at those vertices into actual text, shown in red above.
 
-The final step in inspecting for text is controlling the Go1 to do so. I wrote a simple pitch sweeping sequence that commands the Go1 to sweep its head front camera up and down until it reliably detects text that it recognizes as a command for a next inspection point. This is demonstrated in the video below.
+The final step in inspecting for text is controlling the Go1 to do so. I wrote a simple pitch sweeping sequence that commands the Go1 to sweep its head front camera up and down. It continues this until it reliably detects text that it recognizes as a command for a next inspection point. This is demonstrated in the video below.
 
 {% include youtube.html video_id="zDpLrAneXNg" width="50%" %}
 
@@ -109,13 +109,13 @@ The final step in inspecting for text is controlling the Go1 to do so. I wrote a
 ## Future Work
 Putting the navigation and OCR subsystems together creates a system that can pretty reliably navigate between inspection points in an arbitrary order and avoid obstacles along the way. But as with any project, there is always improvements that can be made.
 
-**1. Getting the dog off the leash.**
+**1. Letting the dog off the leash.**
 
-As can be seen in the demo video, an ethernet cable connects my laptop to the Go1's network of internal computers. This is partially so I can run visualization of the map and point cloud data in RVIZ, but it's also because our Go1's onboard computers are not yet capable of running all the required nodes for this project.
+As can be seen in the demo video, an Ethernet cable connects my laptop to the Go1's network of internal computers. This is partially so I can run visualization of the map and point cloud data in RVIZ, but it's also because our Go1's onboard computers are not yet capable of running all the required nodes for this project.
 
-One of the most challenging parts of this project (on which a separate post is coming soon!) was upgrading the Go1's onboard NVIDIA Jetson Nanos to Ubuntu 22.04. The Nanos come with Ubuntu 18.04 - two LTS's behind the only Tier 1 supported Linux OS for ROS 2 Humble (Ubuntu 22.04). [Katie Hughes](https://katie-hughes.github.io/) and I worked together with help from this [awesome blog from Q-engineering](https://qengineering.eu/install-ubuntu-20.04-on-jetson-nano.html) to upgrade the Go1 to what we believe to be the only ROS 2 Humble version out there at the time of writing this post.
+One of the most challenging parts of this project (on which a separate post is coming soon!) was upgrading the Go1's onboard NVIDIA Jetson Nanos to Ubuntu 22.04. The Nanos come with Ubuntu 18.04 - two LTS's behind the only Tier 1 supported Linux OS for ROS 2 Humble (Ubuntu 22.04). [Katie Hughes](https://katie-hughes.github.io/) and I worked together with help from this [awesome blog from Q-engineering](https://qengineering.eu/install-ubuntu-20.04-on-jetson-nano.html) to upgrade the Go1 to what we believe to be the only ROS 2 Humble version out there (at the time of writing this post).
 
-Unfortunately, we did not have time to also upgrade the Jetson Xavier NX on the Go1, which has more computing power. Getting the Xavier on 22.04 would allow us to run point cloud processing nodes at reasonable speeds on the Go1. We also currently have some limited wireless control of the Go1, which could be improved by bridging the onboard network through the Go1 Raspberry Pi's WiFi adapter. These two improvements would allow us to let the dog off the leash and create a truly mobile autonomous inspection bot.
+Unfortunately, we did not have time to also upgrade the Jetson Xavier NX on the Go1, which has more computing power. Getting the Xavier on 22.04 would allow us to run point cloud processing nodes at reasonable speeds on the robot. We also currently have some limited wireless control of the Go1, which could be improved by bridging the onboard network through the Go1 Raspberry Pi's WiFi adapter. These two improvements would allow us to let the dog off the leash and create a truly mobile autonomous inspection bot.
 
 **2. Integrating IMU odometry.**
 
