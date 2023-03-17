@@ -1,7 +1,7 @@
 ---
 layout: project
 title: Mobile Manipulator Control
-description: Simulating a Kuka Youbot using screw theory
+description: Python, CoppeliaSim, Screw Theory
 image: assets/images/mobile-manipulator-control/main.gif
 imagewidth: 0
 order: 997

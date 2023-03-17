@@ -1,7 +1,7 @@
 ---
 layout: project
 title: Attack of the Franka
-description: Franka Emika Panda wields a lightsaber
+description: Python, ROS 2, OpenCV, Franka Emika Panda
 image: assets/images/attack-of-the-franka/main.gif
 imagewidth: 0
 order: 992

@@ -1,7 +1,7 @@
 ---
 layout: project
 title: OpenCV-Powered Pen Thief
-description: PincherX 100 uses Computer Vision to Steal Pens
+description: Python, OpenCV, PincherX 100
 image: assets/images/pen-thief/main.gif
 imagewidth: 0
 order: 995

@@ -1,7 +1,7 @@
 ---
 layout: project
 title: IMUnipulator
-description: Gesture-controlled robot arm on a microcontroller
+description: C, IMU, nRF52833
 image: assets/images/imunipulator/main.gif
 imagewidth: 0
 order: 993

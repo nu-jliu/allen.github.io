@@ -1,7 +1,7 @@
 ---
 layout: project
 title: SimpleStrings
-description: Purdue ME 2019 Capstone Project
+description: Arduino, KiCAD PCB Design
 image: assets/images/simplestrings/main.png
 imagewidth: 0
 order: 994

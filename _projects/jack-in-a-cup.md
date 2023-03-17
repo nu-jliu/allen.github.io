@@ -1,7 +1,7 @@
 ---
 layout: project
 title: Jack in a Cup Simulation
-description: Lagrangian Dynamics in Python
+description: Python, Lagrangian Dynamics
 image: assets/images/jack-in-a-cup/main.gif
 imagewidth: 0
 order: 998
