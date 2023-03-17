@@ -19,6 +19,8 @@ My winter project focused on exploring this autonomous inspection application wi
 
 <br>
 
+****
+
 ## The Application
 In an industrial setting, an autonomous inspection might look something like the flowchart below. Legged robots can be provided with a map of their industrial setting with specific points of interest for inspection selected by plant engineers. Once the robot has reached each inspection point, it can use an array of sensors - visual, thermal, and more - to collect data. Potentially, if something about the collected data requires further investigation, the robot could decide to divert from its typical inspection route to a secondary inspection location and collect further data. It would continue this procedure until it had collected necessary data from all points of interest.
 
@@ -40,6 +42,8 @@ A real-world analogy to this capability would be visually reading data from disp
 _A high level flowchart for my legged autonomous inspection demo._
 {: refdef}
 
+****
+
 ## The System
 Accomplishing this autonomous inspection task required several subsystems integrated together. These subsystems generally fell into two categories:
 - **Navigation** (3D LiDAR, RTAB-Map, Nav2)
@@ -54,6 +58,8 @@ with some control and high level logic packages to tie the subsystems together.
 _A block diagram of the system software stack._
 {: refdef}
 
+****
+
 ### Navigation
 A critical task for this project is autonomous navigation around a mapped environment and avoiding obstacles that may not have been present in the original map. Luckily ROS 2 has [**Nav2**](https://navigation.ros.org/), a software stack designed specifically for this task.
 
@@ -66,6 +72,8 @@ Here's a video of the Nav2 stack working with the Unitree Go1 for autonomous nav
 {% include youtube.html video_id="oz92rP-ztPk" width="50%" %}
 
 <br>
+
+****
 
 ### Optical Character Recognition
 The second required subsystem is the visual text detection and recognition, referred to here as Optical Character Recognition (OCR). This project uses the Go1's onboard stereo cameras and two pre-trained machine learning models to accomplish this task.
@@ -91,18 +99,36 @@ The final step in inspecting for text is controlling the Go1 to do so. I wrote a
 
 <br>
 
+****
+
 ## Future Work
 Putting the navigation and OCR subsystems together creates a system that can pretty reliably navigate between inspection points in an arbitrary order and avoid obstacles along the way. But as with any project, there is always improvements that can be made.
 
-Getting the dog off the leash
-TODO - first ROS 2 Humble
+**1. Getting the dog off the leash.**
 
-Integrate IMU
+As can be seen in the demo video, an ethernet cable connects my laptop to the Go1's network of internal computers. This is partially so I can run visualization of the map and point cloud data in RVIZ, but it's also because our Go1's onboard computers are not yet capable of running all the required nodes for this project.
 
-Improve holonomic capabilities
+One of the most challenging parts of this project (on which a separate post is coming soon!) was upgrading the Go1's onboard NVIDIA Jetson Nanos to Ubuntu 22.04. The Nanos come with Ubuntu 18.04 - two LTS's behind the only Tier 1 supported Linux OS for ROS 2 Humble (Ubuntu 22.04). [Katie Hughes](https://katie-hughes.github.io/) and I worked together with help from this [awesome blog from Q-engineering](https://qengineering.eu/install-ubuntu-20.04-on-jetson-nano.html) to upgrade the Go1 to what we believe to be the only ROS 2 Humble version out there at the time of writing this post.
 
-Improving search
+Unfortunately, we did not have time to also upgrade the Jetson Xavier NX on the Go1, which has more computing power. Getting the Xavier on 22.04 would allow us to run point cloud processing nodes at reasonable speeds on the Go1. We also currently have some limited wireless control of the Go1, which could be improved by bridging the onboard network through the Go1 Raspberry Pi's WiFi adapter. These two improvements would allow us to let the dog off the leash and create a truly mobile autonomous inspection bot.
+
+**2. Integrating IMU odometry.**
+
+The Go1 provides some odometry calculated from data from its onboard IMU, with limited accuracy. [Marno Nel](https://marnonel6.github.io/) and I experimented with integrating this with the Nav2 stack for faster odometry updates, but we weren't able to get to a comparison with the ICP odometry. Onboard IMU odometry may help improve localization by providing faster odometry updates in between the LiDAR-based SLAM updates. Our progress can be found in the [`onboard-odometry`](https://github.com/ngmor/unitree_nav/tree/onboard-odometry) branch of the `unitree_nav` repo.
+
+**3. Improving holonomic capabilities.**
+
+The Go1 can move forward, backward, and to each side. At current, Nav2 only ever plans paths where the robot moves in the forward and backward directions and rotates. With a little more investigation, this could be improved so the robot can move side to side too when planning paths!
+
+**4. Improving data search capabilities.**
+
+Currently, when searching for data, the Go1 only sweeps up and down from its current position. If there was some error in the navigation, this can sometimes cause it to miss the data at the inspection point. Improved algorithms to move the Go1 left and right slightly might help find the data more reliably.
+
+**5. Adding other sensors.**
+
+Visual inspection is great and could be extended to further cases. But it would also be versatile to include other sensors such as IR cameras to improve the dog's sensing capabilities.
 
 
+****
 
 A big thanks to the other engineers who collaborated with me in getting the Go1 up and running. The autonomous inspection project was my own, but [**Marno Nel**](https://marnonel6.github.io/), [**Katie Hughes**](https://katie-hughes.github.io/), [**Ava Zahedi**](https://avazahedi.github.io/), and I worked together on upgrading and integrating the Go1 with ROS 2 Humble. Another post about that project is coming soon!
