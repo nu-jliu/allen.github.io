@@ -1,7 +1,7 @@
 ---
 layout: project
 title: Legged Autonomous Inspection
-description: C++, ROS 2, Nav2, RTAB-Map, OpenCV, Unitree Go1
+description: C++, ROS 2, Nav2, Machine Learning, Unitree Go1
 image: assets/images/legged-autonomous-inspection/main.gif
 imagewidth: 0
 order: 989
@@ -68,19 +68,31 @@ Here's a video of the Nav2 stack working with the Unitree Go1 for autonomous nav
 <br>
 
 ### Optical Character Recognition
+The second required subsystem is the visual text detection and recognition, referred to here as Optical Character Recognition (OCR). This project uses the Go1's onboard stereo cameras and two pre-trained machine learning models to accomplish this task.
+
+In order to get image data from the Go1's onboard cameras, I wrote a [ROS 2 C++ wrapper](https://github.com/ngmor/unitree_camera) for the [**Unitree Camera SDK**](https://github.com/ngmor/UnitreecameraSDK) that uses [`image transport`](https://github.com/ros-perception/image_common/tree/ros2/image_transport) for image compression. This publishes raw, rectified, depth, and point cloud images from any of the Go1's five onboard cameras.
+
+TODO camera media here
+
+The first machine learning model uses a nueral network based on a [TensorFlow re-implementation](https://github.com/argman/EAST) of the [**Efficient and Accurate Scene Text Detector (EAST)**](https://arxiv.org/abs/1704.03155v2) model. This pipeline is designed to detect where text is located in a natural scene so that a text recognition model can parse it into characters. The EAST model provides bounding vertices for lines of text in arbitrary orientations, as shown by the green bounding rectangles in the image below.
+
 {:refdef: style="text-align: center;"}
 ![TODO](/assets/images/legged-autonomous-inspection/woof-bark-arf-ruff.jpg){: width="35%"}
 {: refdef}
 {:refdef: style="text-align: center;"}
-_Reading dog words with the dog TODO._
+_Making the dog read dog words._
 {: refdef}
+
+The second machine learning model uses a **convolutional recurrent nueral network (CRNN)** trained on the [MJSynth](https://www.robots.ox.ac.uk/~vgg/data/text/) and [SynthText](https://www.robots.ox.ac.uk/~vgg/data/scenetext/) datasets. It accepts the bounding vertices from the EAST model and parses the image cropped at those vertices into actual text, shown in red above.
+
+The final step in inspecting for text is controlling the Go1 to do so. I wrote a simple pitch sweeping sequence that commands the Go1 to sweep its head front camera up and down until it reliably detects text that it recognizes as a command for a next inspection point. This is demonstrated in the video below.
 
 {% include youtube.html video_id="zDpLrAneXNg" width="50%" %}
 
 <br>
 
 ## Future Work
-TODO
+Putting the navigation and OCR subsystems together creates a system that can pretty reliably navigate between inspection points in an arbitrary order and avoid obstacles along the way. But as with any project, there is always improvements that can be made.
 
 Getting the dog off the leash
 TODO - first ROS 2 Humble
