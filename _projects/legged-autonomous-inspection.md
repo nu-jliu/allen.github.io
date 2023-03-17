@@ -80,12 +80,17 @@ The second required subsystem is the visual text detection and recognition, refe
 
 In order to get image data from the Go1's onboard cameras, I wrote a [ROS 2 C++ wrapper](https://github.com/ngmor/unitree_camera) for the [**Unitree Camera SDK**](https://github.com/ngmor/UnitreecameraSDK) that uses [`image transport`](https://github.com/ros-perception/image_common/tree/ros2/image_transport) for image compression. This publishes raw, rectified, depth, and point cloud images from any of the Go1's five onboard cameras.
 
-TODO camera media here
+{:refdef: style="text-align: center;"}
+![Stereo Rectified, Depth, and Point Cloud](/assets/images/legged-autonomous-inspection/camera-feeds.gif){: width="50%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_Go1 head front camera feeds of stereo rectified and depth images and point cloud data._
+{: refdef}
 
 The first machine learning model uses a nueral network based on a [TensorFlow re-implementation](https://github.com/argman/EAST) of the [**Efficient and Accurate Scene Text Detector (EAST)**](https://arxiv.org/abs/1704.03155v2) model. This pipeline is designed to detect where text is located in a natural scene so that a text recognition model can parse it into characters. The EAST model provides bounding vertices for lines of text in arbitrary orientations, as shown by the green bounding rectangles in the image below.
 
 {:refdef: style="text-align: center;"}
-![TODO](/assets/images/legged-autonomous-inspection/woof-bark-arf-ruff.jpg){: width="35%"}
+![Woof! Bark! Arf! Ruff!](/assets/images/legged-autonomous-inspection/woof-bark-arf-ruff.jpg){: width="35%"}
 {: refdef}
 {:refdef: style="text-align: center;"}
 _Making the dog read dog words._
