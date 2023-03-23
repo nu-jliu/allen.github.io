@@ -4,7 +4,7 @@ title: Attack of the Franka
 description: Python, ROS 2, OpenCV, Franka Emika Panda
 image: assets/images/attack-of-the-franka/main.gif
 imagewidth: 0
-order: 992
+order: 990
 ---
 
 [GitHub Repository](https://github.com/ngmor/attack-of-the-franka)
