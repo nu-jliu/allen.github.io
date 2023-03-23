@@ -14,3 +14,10 @@ order: 992
 <br>
 
 ****
+
+{:refdef: style="text-align: center;"}
+![TODO](/assets/images/ekf-slam-from-scratch/state-estimation.svg){: width="35%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_TODO_
+{: refdef}
