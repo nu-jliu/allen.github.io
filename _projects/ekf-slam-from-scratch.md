@@ -2,7 +2,7 @@
 layout: project
 title: EKF SLAM from Scratch
 description: C++, ROS 2, TurtleBot3
-image:
+image: assets/images/ekf-slam-from-scratch/main.gif
 imagewidth: 0
 order: 992
 ---
