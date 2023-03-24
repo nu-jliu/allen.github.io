@@ -58,7 +58,7 @@ _Raw LiDAR data, which won't mean much until processed._
 {: refdef}
 
 #### Point Clustering
-First, a simple unsupervised learning algorithm is used to group the LiDAR points into clusters based on their Euclidean distance from eachother. Each cluster is considered a possible landmark.
+First, a simple unsupervised learning algorithm is used to group the LiDAR points into clusters based on their Euclidean distance from each other. Each cluster is considered a possible landmark.
 
 #### Circle Classification and Regression
 Clusters are filtered using a [circle detection algorithm](https://ieeexplore.ieee.org/document/1570721) to determine which are likely to represent cylindrical landmarks and which are not.
@@ -106,6 +106,23 @@ In order to test the complex pipeline above, I wrote a simulation package. This 
 
 Here is a video of the EKF SLAM pipeline working in simulation.
 
-TODO video
+{% include youtube.html video_id="ls9A1shaAQg" width="75%" %}
+
+<br>
+
+Here's a key for interpreting the items in the video:
+- **Red** - the simulation's ground truth location for items including:
+    - Robot position
+    - Landmark/wall position
+    - Robot path
+- **Blue** - the odometry estimate for items including:
+    - Robot position
+    - Robot path
+- **Green** - the EKF SLAM estimate for items including:
+    - Robot position
+    - Landmark/wall position
+    - Robot path
+
+As can be seen, despite simulation noise and even running into an obstacle and getting stuck, the EKF SLAM estimate stays with the ground truth robot position. The odometry estimate has no way to detect a collision if the wheels continue to slip on the ground, so its position estimate is very inaccurate.
 
 The simulation was invaluable in debugging the pipeline and ensuring it was resistant to sensor noise. When it came to running on the real robot, several pipeline parameters had to be retuned, indicating that the simulation was not very representative of the noise/slippage present in the real world. This was a great lesson to learn - simulations can be very valuable tools, but you won't know if something works on a real robot until you try it!
