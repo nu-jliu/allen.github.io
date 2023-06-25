@@ -19,7 +19,15 @@ Here's a demo of the full device:
 
 <br>
 
-TODO - table of contents
+{% details **<u>Table of Contents</u>** %}
+- [Design](#design)
+- [Drivers](#drivers)
+- [Mechanical Hardware](#mechanical-hardware)
+  - [Base](#base)
+  - [End-Effector Options](#end-effector-options)
+- [Team](#team)
+{% enddetails %}
+
 
 ****
 
