@@ -17,7 +17,7 @@ I was interested in this autonomous inspection application, so my winter project
 
 <br>
 
-{% details **Table of Contents** %}
+{% details **<u>Table of Contents</u>** %}
 - [The Application](#the-application)
 - [The System](#the-system)
   - [Navigation](#navigation)
@@ -78,7 +78,7 @@ Here's a video of the Nav2 stack working with the Unitree Go1 for autonomous nav
 
 <br>
 
-{% details Expand for more technical details on the navigation subsystem. %}
+{% details **<u>Expand</u>** for more technical details on the navigation subsystem. %}
 
 The first part of integrating Nav2 with the Unitree Go1 was sensing. The Unitree Go1 EDU Plus model has an option of coming with a [**RoboSense RS-Helios-16P 3D LiDAR**](https://www.robosense.ai/en/rslidar/RS-Helios), so I worked with [Marno Nel](https://marnonel6.github.io/) to set up this sensor for mapping of the environment. We chose to process the point cloud data provided by this sensor with [**RTAB-Map**](http://introlab.github.io/rtabmap/) for its 3D 6DoF mapping capabilities. RTAB-Map provides the Nav2 stack with [**ICP odometry**](https://en.wikipedia.org/wiki/Iterative_closest_point) and SLAM updates for the position of the robot and objects in the environment. Nav2 then uses this information to create local and global costmaps for planning paths that avoid collisions with obstacles in the environment.
 
@@ -105,7 +105,7 @@ _Go1 head front camera feeds of stereo rectified and depth images and point clou
 _Making the dog read dog words._
 {: refdef}
 
-{% details Expand for more technical details on the visual text detection subsystem. %}
+{% details **<u>Expand</u>** for more technical details on the visual text detection subsystem. %}
 
 My Unitree Camera SDK C++ wrapper uses [`image_transport`](https://github.com/ros-perception/image_common/tree/ros2/image_transport) for image compression. This publishes raw, rectified, depth, and point cloud images from any of the Go1's five onboard cameras.
 
