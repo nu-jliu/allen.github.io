@@ -35,10 +35,14 @@ Knowing this information, I could then determine the location of the pen in the 
 ### Possible Improvements
 I always like to think of how I could improve my projects if given a next iteration! Here are some of my ideas:
 
-**1. Improve the calibration method.**
+{% details **1. Improve the calibration method.** %}
 
 The calibration method to determine the transformation between the camera reference frame and the robot reference frame relies on an assumption about the orientation of the camera relative to the robot. An improvement on this might be to use some sort of **[fiducial marker](https://en.wikipedia.org/wiki/Fiducial_marker)**, like an AprilTag affixed to the robot's base. By choosing a known geometry between the robot's reference frame and the location of the marker, I could detect the marker in my CV application and calculate a much more accurate transformation.
 
-**2. Add communication during the relay race.**
+{% enddetails %}
 
-Due to time limitations of the hackathon, our pen thief relay race relied on timing for the robots to know when to act in relation to one another. This is of course very unreliable. A much better solution would to have the robots actually communicate to one another to decide when each robot would grasp, release, and move the pen. We could accomplish this by taking advantage of the **socket** library in Python to send simple **TCP packets** between the robots for sequence handshakes.
+{% details **2. Add communication during the relay race.** %}
+
+Due to time limitations of the hackathon, our pen thief relay race relied on timing for the robots to know when to act in relation to one another. This is of course very unreliable. A much better solution would be to have the robots actually communicate to one another to decide when each robot would grasp, release, and move the pen. We could accomplish this by taking advantage of the [**socket**](https://docs.python.org/3/library/socket.html) library in Python to send simple **TCP packets** between the robots for sequence handshakes.
+
+{% enddetails %}
