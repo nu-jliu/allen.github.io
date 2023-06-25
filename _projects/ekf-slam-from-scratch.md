@@ -25,6 +25,20 @@ The video above shows this project in action. The RVIZ window on the right shows
 
 As can be seen, the EKF SLAM estimate follows the real-world position of the robot closely, even as the odometry estimate drifts.
 
+{% details **<u>Table of Contents</u>** %}
+- [SLAM Pipeline](#slam-pipeline)
+  - [Odometry](#odometry)
+  - [Landmark Detection and Data Association](#landmark-detection-and-data-association)
+    - [Point Clustering](#point-clustering)
+    - [Circle Classification and Regression](#circle-classification-and-regression)
+    - [Mahalanobis Distance](#mahalanobis-distance)
+  - [Extended Kalman Filter SLAM](#extended-kalman-filter-slam)
+    - [Prediction](#prediction)
+    - [Correction](#correction)
+- [Simulation](#simulation)
+
+{% enddetails %}
+
 ****
 
 ## SLAM Pipeline
@@ -43,12 +57,12 @@ Wheel encoder data arrives at 200 Hz, much faster than the LiDAR data at 5Hz. Fo
 
 Odometry uses the forward kinematics of the TurtleBot3's differential drive design to calculate the theoretical location of the robot based on how the wheels have turned, assuming no slipping occurs.
 
-However, slipping does in fact occur, meaning that overtime the odometry estimate will drift away from the real location of the robot. This can be seen in the video above.
+However, slipping does in fact occur, meaning that over time the odometry estimate will drift away from the real location of the robot. This can be seen in the video above.
 
 ### Landmark Detection and Data Association
 We'd like to improve the state estimate from odometry by looking at data from the world around us. This is where the 2D LiDAR data comes in. Our controlled environment has cylindrical obstacles in it, which can be used as landmarks for positioning the robot in the environment.
 
-However, the LiDAR data comes in as a series of data points giving us how far away an object is (range) and what angle it's at from the front of the robot (bearing). In order to interpret this data as "cylinders," it'll have to be processed a few different ways.
+However, the LiDAR data comes in as a series of data points giving us how far away an object is (**range**) and the angle from the front of the robot (**bearing**). In order to interpret this data as "cylinders," it'll have to be processed a few different ways.
 
 {:refdef: style="text-align: center;"}
 ![Raw LiDAR data](/assets/images/ekf-slam-from-scratch/raw-lidar-data.png){: width="50%"}
@@ -58,7 +72,7 @@ _Raw LiDAR data, which won't mean much until processed._
 {: refdef}
 
 #### Point Clustering
-First, a simple unsupervised learning algorithm is used to group the LiDAR points into clusters based on their Euclidean distance from each other. Each cluster is considered a possible landmark.
+First, a simple unsupervised DBSCAN-like learning algorithm is used to group the LiDAR points into clusters based on their Euclidean distance from each other. Each cluster is considered a possible landmark.
 
 #### Circle Classification and Regression
 Clusters are filtered using a [circle detection algorithm](https://ieeexplore.ieee.org/document/1570721) to determine which are likely to represent cylindrical landmarks and which are not.
