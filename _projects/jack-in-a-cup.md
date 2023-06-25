@@ -9,7 +9,7 @@ order: 998
 
 [GitHub Repository](https://github.com/ngmor/machine-dynamics-final)
 
-Northwestern University's ME314 Machine Dynamics class focuses on analysis of rigid body systems using **Lagrangian dynamics**, including how to deal with external forces, constraints, and impacts. The class also puts a heavy emphasis on using numerical methods and **Python's** **sympy**, **numpy**, and **plotly** packages to simulate system behavior and then animate that simulation.
+Northwestern University's ME314 Machine Dynamics class focuses on analysis of rigid body systems using [**Lagrangian dynamics**](https://en.wikipedia.org/wiki/Lagrangian_mechanics), including how to deal with external forces, constraints, and impacts. The class also puts a heavy emphasis on using numerical methods and **Python's** [**sympy**](https://www.sympy.org/en/index.html), [**numpy**](https://numpy.org/), and [**plotly**](https://plotly.com/python/) packages to simulate system behavior and then animate that simulation.
 
 As a final project in the class, students model a dynamic rigid body system, simulate it, and animate it. I modeled a jack bouncing around in a cup. Both these rigid bodies are subject to gravity, and the cup is subject to two orthogonal external forces and an external torque (to mimic a human shaking it).
 
@@ -17,6 +17,8 @@ Here is a video of the final simulation:
 
 {% include youtube.html video_id="AhWuadxF710" width="75%" %}
 <br>
+
+****
 
 ## Overview of Methodology
 The system consists of two rigid bodies, the jack and the cup, simulated in a 2D plane. Each body has 3 degrees of freedom (orientation and 2D position), giving a total of 6 configuration variables for the system.
@@ -56,6 +58,8 @@ The simulation follows these steps:
     - Calculate the state at each timestep using the solutions to the Euler-Lagrange equations and a Runge-Kutta fourth-order integration scheme.
     - Check all impact conditions at each timestep. If impacts occurred, apply the appropriate impact update and resume the simulation.
 11. Animate simulation results.
+
+****
 
 ## Conclusions
 The Lagrangian dynamics analysis method - especially when used in concert with SE(3) transformation matrices - gives a procedural way to analyze a system. I find this method very useful especially when systems are more complex than basic, simple systems with only a few configuration variables, as most engineering systems are. The behavior of these complex systems can be very difficult to predict, so having a procedural method of analysis helps me trust that my analysis will be correct.
