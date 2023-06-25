@@ -4,7 +4,7 @@ title: Omnid Mocobots
 description: C++, Python, ROS 2, Machine Learning
 image: assets/images/omnid-mocobots/main.gif
 imagewidth: 0
-order: 988
+order: 987
 ---
 
 For my final project in Northwestern University's MSR program, I am working with the unique [**omnidirectional mobile cobots**](https://www.mccormick.northwestern.edu/news/articles/2022/08/mobile-cobots-offer-glimpse-of-future-of-human-robot-interaction/), dubbed "omnid mocobots" or "omnids" for short. These collaborative robots were developed at Northwestern University by [**Elwin et al.**](https://arxiv.org/abs/2206.14293).
