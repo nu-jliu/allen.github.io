@@ -45,7 +45,7 @@ I chose to present the data as text located somewhere at the inspection point, w
 A real-world analogy to this capability would be visually reading data from display readouts throughout an industrial environment. Many display readouts, especially in older facilities, provide sensor data that cannot be networked to a plant SCADA system. Having the ability to detect text and extract data from those sensor readouts would be very versatile.
 
 {:refdef: style="text-align: center;"}
-![TODO](/assets/images/legged-autonomous-inspection/demo-flowchart.svg){: width="35%"}
+![This Project's Flowchart](/assets/images/legged-autonomous-inspection/demo-flowchart.svg){: width="35%"}
 {: refdef}
 {:refdef: style="text-align: center;"}
 _A high level flowchart for my legged autonomous inspection demo._

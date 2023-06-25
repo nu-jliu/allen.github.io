@@ -19,13 +19,24 @@ Here's a video of my solution to the problem:
 
 <br>
 
+{% details **<u>Table of Contents</u>** %}
+- [Design](#design)
+  - [Milestone 1: youBot Kinematics Simulator](#milestone-1-youbot-kinematics-simulator)
+  - [Milestone 2: Reference Trajectory Generation](#milestone-2-reference-trajectory-generation)
+  - [Milestone 3: Feedforward/Feedback Control](#milestone-3-feedforwardfeedback-control)
+  - [Self-Collision Avoidance](#self-collision-avoidance)
+- [Future Work](#future-work)
+{% enddetails %}
+
+****
+
 ## Design
 The project is split up into several steps, called "milestones."
 
 ### Milestone 1: youBot Kinematics Simulator
 The first step was to write code to simulate the youBot kinematics. The CoppeliaSim scene only performs physics simulations for the youBot gripper and the block, to determine whether the motion of the youBot succeeds to pick up the block. The actual motion of the youBot is input into the CoppeliaSim scene as a CSV which includes joint states, wheel positions, and chassis positions.
 
-In order to create an accurate simulation (at least kinematically), I use first-order Euler integration to determine the new states of the joints and wheels based on the current state and input command velocities. The position of the chassis of the omnidirectional robot is dependent on the wheel motion, so I use odometry to then determine the change in chassis position from the wheel motion.
+In order to create an accurate simulation (at least kinematically), I used first-order Euler integration to determine the new states of the joints and wheels based on the current state and input command velocities. The position of the chassis of the omnidirectional robot is dependent on the wheel motion, so I used odometry to then determine the change in chassis position from the wheel motion.
 
 ### Milestone 2: Reference Trajectory Generation
 Next, a reference trajectory for the youBot end-effector is generated. This reference trajectory consists of 8 segments:
@@ -53,6 +64,7 @@ The control law calculates an error twist based on actual position of the end-ef
 
 Finally, putting all the milestones together into a single workflow allows a CSV of joint/wheel/chassis states to be created, which defines the motion of the youBot in the simulation.
 
+
 ### Self-Collision Avoidance
 Because dynamics and collisions of the youBot chassis/links are not being simulated in Milestone 1 or CoppeliaSim, with just the core project it is very possible for the youBot to collide with itself. In fact, without including collision avoidance, self-collisions were prone to happen. The method used to calculate command velocities uses the pseudoinverse of the youBot's Jacobian, which minimizes the motion needed to keep the end-effector on the target trajectory. Minimizing motion often coincides with movements that produce self-collision.
 
@@ -62,7 +74,9 @@ This worked very effectively in preventing self-collisions. The previous videos 
 
 {% include youtube.html video_id="csmE6v4PY44" width="50%" %}
 
-## Possible Improvements
+****
+
+## Future Work
 One area that could be improved in this solution would be trajectory timing. Right now, several time parameters (total time, gripper actuation time, standoff motion time) must be passed into the reference trajectory generation function in order for it to generate a reference trajectory. The behavior of the youBot can be very sensitive to these timing parameters. Generally longer times aren’t an issue, but if the total time for the simulation is too short, the youBot’s control algorithm will have to deal with very large errors due to high required speeds and will not work well.
 
 One solution to this would be modifying the reference trajectory generation function to use the maximum speed of joints/wheels to determine a reasonable total time for the task and generate a reference trajectory accordingly. This would reduce the possibility of having the feedback/feedforward control malfunction due to large errors caused by high speed demands.
