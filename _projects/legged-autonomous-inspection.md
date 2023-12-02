@@ -4,7 +4,7 @@ title: Legged Autonomous Inspection
 description: C++, ROS 2, Nav2, Machine Learning, Unitree Go1
 image: assets/images/legged-autonomous-inspection/main.gif
 imagewidth: 0
-order: 989
+order: 988
 ---
 
 [GitHub Repository](https://github.com/ngmor/unitree_inspection)

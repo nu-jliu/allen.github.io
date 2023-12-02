@@ -4,7 +4,7 @@ title: Nauticus Robotics 3D Path Planner
 description: C++, ROS 2, Navigation, Underwater Robotics
 image: assets/images/nauticus/main.gif
 imagewidth: 0
-order: 988
+order: 987
 ---
 
 During the summer before my final quarter in Northwestern University's MSR program, I worked on a 3D path planner for use in **Wayfinder**, a part of the [**toolKITT**](https://nauticusrobotics.com/toolkitt/) software suite created by [**Nauticus Robotics**](https://nauticusrobotics.com/). The goal of the planner was to guide autonomous underwater vehicles (AUVs) like the [Aquanaut MK2](https://nauticusrobotics.com/aquanaut/) along near-optimal paths through dynamically changing three dimensional underwater environments.
