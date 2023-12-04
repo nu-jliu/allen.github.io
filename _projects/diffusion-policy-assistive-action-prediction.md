@@ -7,9 +7,11 @@ imagewidth: 0
 order: 986
 ---
 
+TODO - github
+
 For my final project in Northwestern University's MSR program, I worked with the unique [**omnidirectional mobile cobots**](https://www.mccormick.northwestern.edu/news/articles/2022/08/mobile-cobots-offer-glimpse-of-future-of-human-robot-interaction/), dubbed "omnid mocobots" or "omnids" for short. These collaborative robots were developed at Northwestern University by [**Elwin et al.**](https://arxiv.org/abs/2206.14293).
 
-A portion of the project involved [upgrading the omnids' onboard systems](/projects/omnid-mocobots), but the main goal of the project was to research novel ways to apply **assistive action prediction using generative machine learning models**. To do this, I applied [**diffusion policy**](https://diffusion-policy.cs.columbia.edu/), a method of generating robot actions using [diffusion models](TODO).
+A portion of the project involved [upgrading the omnids' onboard systems](/projects/omnid-mocobots), but the main goal of the project was to research novel ways to apply **assistive action prediction using generative machine learning models**. To do this, I applied [**diffusion policy**](https://diffusion-policy.cs.columbia.edu/), a method of generating robot actions using [diffusion models](#diffusion-policy).
 
 TODO - video
 
@@ -20,9 +22,9 @@ TODO - table of contents
 ## Diffusion Policy
 
 ### What is a diffusion model?
-[Diffusion models](https://en.wikipedia.org/wiki/Diffusion_model) were introduced in 2015 as a method of learning a model that can sample from highly complex probability distributions. The models used in this project are based on the [denoising diffusion probabilistic model (DDPM)](https://en.wikipedia.org/wiki/Diffusion_model), introduced in 2020.
+[Diffusion models](https://en.wikipedia.org/wiki/Diffusion_model) were introduced in 2015 as a method of learning a model that can sample from highly complex probability distributions. The models used in this project are based on the [denoising diffusion probabilistic model (DDPM)](https://en.wikipedia.org/wiki/Diffusion_model#Denoising_diffusion_model), introduced in 2020.
 
-A classic use of this type of model is image generation, where by training the model on a set of images, the model could then generate new images that approximate the input set.
+A classic use of this type of model is image generation, where by training the model on a set of images, the model can then generate new images that approximate the input set.
 
 {:refdef: style="text-align: center;"}
 ![DDPM Image Generation](/assets/images/diffusion-policy-assistive-action-prediction/ddpm-image-generation.png){: width="70%"}
@@ -54,6 +56,30 @@ _Diffusion models learn an incremental transfer function that allows sampling fr
 {: refdef}
 
 ### How can diffusion models generate robot actions?
+
+[**Diffusion policy**](https://diffusion-policy.cs.columbia.edu/) was introduced in 2023. This policy applies diffusion models to the generation of action sequences based on a dataset of human demonstrations. Much like image generation models can condition their generation on text prompts, diffusion policy conditions the action sequence generation on the observations from the robot's sensors - cameras, position/velocity/force feedback, and more.
+
+{:refdef: style="text-align: center;"}
+![Diffusion Policy Action Prediction](/assets/images/diffusion-policy-assistive-action-prediction/diffusion-policy-action-prediction.png){: width="70%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_Diffusion policy applies the diffusion model setup to predicting action sequences for robots to execute._
+{: refdef}
+
+After predicting an action sequence across a **prediction horizon (_Tp_)** based on observations from an **observation horizon (_To_)**, diffusion policy then performs **receding horizon control**. This means that only a subset **action horizon (_Ta_)** of actions is performed before the model performs a new prediction based on updated observations. Then the whole process repeats.
+
+{:refdef: style="text-align: center;"}
+![Receding Horizon Control with Diffusion Policy](/assets/images/diffusion-policy-assistive-action-prediction/receding-horizon-control.png){: width="70%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_The receding horizon control scheme used in diffusion policy._
+{: refdef}
+
+The advantage of using a diffusion model to plan robot actions like this is that, as mentioned above, diffusion models can sample from complex arbitrary distributions. Robot action sequence distributions are often complex and multimodal - there are often many ways a robot can accomplish a certain task, and diffusion policy handles those complexities gracefully.
+
+****
+
+## Assistive Action Prediction with the Omnids
 
 ****
 
