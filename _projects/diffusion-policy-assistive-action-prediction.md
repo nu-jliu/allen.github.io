@@ -30,7 +30,7 @@ A classic use of this type of model is image generation, where by training the m
 ![DDPM Image Generation](/assets/images/diffusion-policy-assistive-action-prediction/ddpm-image-generation.png){: width="70%"}
 {: refdef}
 {:refdef: style="text-align: center;"}
-_A diagram of how DDPM models generate new images. The example images are from a simple model I trained on the Caltech 101 Motorbikes dataset._
+_This example is from a simple model I trained on the Caltech 101 Motorbikes dataset._
 {: refdef}
 
 {% details **<u>Expand</u>** for more details on image generation with diffusion models. %}
@@ -52,7 +52,7 @@ Importantly, the model can also be conditioned on other inputs, such as a text p
 ![DDPM Distribution Sampling](/assets/images/diffusion-policy-assistive-action-prediction/ddpm-distribution-sampling.png){: width="70%"}
 {: refdef}
 {:refdef: style="text-align: center;"}
-_Diffusion models learn an incremental transfer function that allows sampling from an arbitrary distribution that represents the data input into the model._
+_This example is from a simple model I trained on an arbitrary multimodal 1D distribution._
 {: refdef}
 
 ### How can diffusion models generate robot actions?
@@ -62,17 +62,11 @@ _Diffusion models learn an incremental transfer function that allows sampling fr
 {:refdef: style="text-align: center;"}
 ![Diffusion Policy Action Prediction](/assets/images/diffusion-policy-assistive-action-prediction/diffusion-policy-action-prediction.png){: width="70%"}
 {: refdef}
-{:refdef: style="text-align: center;"}
-_Diffusion policy applies the diffusion model setup to predicting action sequences for robots to execute._
-{: refdef}
 
 After predicting an action sequence across a **prediction horizon (_Tp_)** based on observations from an **observation horizon (_To_)**, diffusion policy then performs **receding horizon control**. This means that only a subset **action horizon (_Ta_)** of actions is performed before the model performs a new prediction based on updated observations. Then the whole process repeats.
 
 {:refdef: style="text-align: center;"}
 ![Receding Horizon Control with Diffusion Policy](/assets/images/diffusion-policy-assistive-action-prediction/receding-horizon-control.png){: width="70%"}
-{: refdef}
-{:refdef: style="text-align: center;"}
-_The receding horizon control scheme used in diffusion policy._
 {: refdef}
 
 The advantage of using a diffusion model to plan robot actions like this is that, as mentioned above, diffusion models can sample from complex arbitrary distributions. Robot action sequence distributions are often complex and multimodal - there are often many ways a robot can accomplish a certain task, and diffusion policy handles those complexities gracefully.
@@ -80,6 +74,52 @@ The advantage of using a diffusion model to plan robot actions like this is that
 ****
 
 ## Assistive Action Prediction with the Omnids
+
+### Omnid System
+
+The omnids were designed as an assistive tool to help human operators manipulate potentially large, delicate, flexible, and/or articulated payloads.
+
+Each omnid consists of an omnidirectional mobile base and a series-elastic actuator driven Delta parallel manipulator on top. During the robot's "float" mode, the manipulator is force-controlled to cancel the gravity of a payload and zero the contact force. The mobile base is commanded to center itself under the end-effector. This combination allows a human collaborator to easily guide the payload as it is carried by the omnids.
+
+{:refdef: style="text-align: center;"}
+![Omnid System](/assets/images/diffusion-policy-assistive-action-prediction/omnid-system.png){: width="40%"}
+{: refdef}
+
+While they are also capable of autonomous action, the omnid team at Northwestern was particularly interested in exploring whether applying generative action prediction through models like diffusion policy could improve omnid performance in collaborative tasks.
+
+Questions asked included:
+- Will action prediction in this system help reduce the force the human must apply to manipulate the payload?
+- Will action prediction in this system help the human control the payload more precisely?
+
+Several potential system architectures were designed to explore these questions. In each architecture, the generative model is used to produce an action, which is then executed by the system. The model in each architecture takes as input:
+- End-effector X/Y/Z positions, velocities, and forces
+- Gimbal X/Y/Z axis rotations
+- Base twist (optional) from the float controller
+- Image data (optional) from three cameras (overhead, horizontal, and onboard the omnid)
+
+### Force Prediction
+
+The idea behind the force prediction is that if the model can predict the force applied by the human on the end-effector, the force controller can preemptively apply that force to assist the human. The predicted force can then be fed into the end-effector's force controller as additional forces to apply to the end-effector. Optionally, the feedback end-effector force values can be subtracted from the prediction, so only the "residual" is fed into the force controller.
+
+{:refdef: style="text-align: center;"}
+![Force Prediction Setup](/assets/images/diffusion-policy-assistive-action-prediction/force-prediction.png){: width="50%"}
+{: refdef}
+
+### Position Prediction
+
+Similarly, position prediction focuses on predicting the position of the end-effector (from its home position) and preemptively commanding the end-effector to that prediction via a position controller.
+
+{:refdef: style="text-align: center;"}
+![Position Prediction Setup](/assets/images/diffusion-policy-assistive-action-prediction/position-prediction.png){: width="50%"}
+{: refdef}
+
+### Base Twist Prediction
+
+Finally, base twist prediction could either replace the float controller entirely or augment it with "residual" values. With this architecture, the base would follow a twist that anticipates the human's actions.
+
+{:refdef: style="text-align: center;"}
+![Base Twist Prediction Setup](/assets/images/diffusion-policy-assistive-action-prediction/twist-prediction.png){: width="50%"}
+{: refdef}
 
 ****
 
@@ -95,6 +135,12 @@ The advantage of using a diffusion model to plan robot actions like this is that
 
 ## Results
 
+### Architecture Selection
+
 ****
 
 ## Future Work
+
+- autonomy
+- model tuning
+- better evaluation
