@@ -15,6 +15,8 @@ A portion of the project involved [upgrading the omnids' onboard systems](/proje
 
 TODO - video
 
+TODO - results summary
+
 TODO - table of contents
 
 ****
@@ -131,11 +133,74 @@ The advantage of using a diffusion model to plan robot actions like this is that
 
 ## Machine Learning Pipeline
 
+In order to test the above architectures, a pipeline needed to be created with infrastructure for collecting data, training, and testing.
+
 ### Data Collection
+
+To collect human demonstration data, a simple task space was set up. This space included several differently-colored tape targets to indicate positions to which the human should guide an omnid.
+
+{:refdef: style="text-align: center;"}
+![Task Space](/assets/images/diffusion-policy-assistive-action-prediction/task-space.png){: width="70%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_The task space in which all testing was performed._
+{: refdef}
+
+50 human demonstrations were collected for each target, by having the human drag an omnid by a small payload dubbed the "leash". AprilTags are fixed to the floor, the robot, and the leash, allowing each to be tracked later for evaluation of any collected data. AprilTags detections are not passed as inputs to any models.
+
+{:refdef: style="text-align: center;"}
+![Omnid Homing Setup](/assets/images/diffusion-policy-assistive-action-prediction/omnid-homing-setup.jpg){: width="60%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_The "leash" - a small payload constructed of 80/20 with an AprilTag attached to it.<br>This rests on the "rack", a rig used to home the Delta manipulator to a consistent position before every test._
+{: refdef}
+
+{:refdef: style="text-align: center;"}
+![Dataset Trajectories](/assets/images/diffusion-policy-assistive-action-prediction/dataset-trajectories.png){: width="40%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_A plot showing the all trajectories followed by the robot in the training dataset._
+{: refdef}
+
+Three cameras were used to collect image data - an overhead camera, a horizontal camera, and a camera onboard the omnid.
+
+{:refdef: style="text-align: center;"}
+![Example Training Run](/assets/images/diffusion-policy-assistive-action-prediction/example-training-run.gif){: width="100%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_The camera feed from each camera during a run._
+{: refdef}
+
+In order to record all this data, an `omnid_data_collection` package was written for ROS 2 Iron. This package included a node that recorded ROS bags based on configured input topics, launch files to start all required nodes, and bash helper scripts to guide users through the data collection process. The launch files relied heavily on the [`launch_remote_ssh`](/projects/omnid-mocobots#launch_remote_ssh) package I wrote to launch all required nodes on multiple machines simultaneously.
+
+This infrastructure was critical in collecting data quickly and allowed a **full training human demonstration run to be recorded every 40 seconds**.
+
+{% details **<u>Expand</u>** for a full list of data collected from runs.%}
+This includes data that may only be meaningful on evaluation runs (with a generative model running).
+- Overhead camera images/info
+- Horizontal camera images/info
+- Onboard camera images/info
+- TF tree (for AprilTag transforms)
+- AprilTag detections
+- Joint states of all joints (including position, velocity, and effort)
+- Commanded additional forces for EE force controller
+- Commanded Delta motor velocity or torque
+- Commanded base twist
+- Payload's reflected weight
+- Estimated odometry
+- Target positional achievement status
+- Details of generative model used (if any)
+{% enddetails %}
+
+<br>
 
 ### Training
 
+TODO - decimation
+
 ### Evaluation
+
+#### Gauntlet Task
 
 ****
 
