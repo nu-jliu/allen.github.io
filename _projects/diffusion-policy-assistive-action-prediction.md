@@ -1,7 +1,7 @@
 ---
 layout: project
 title:  Diffusion Policy Action Prediction
-description: C++, PyTorch, Machine Learning, ROS 2
+description: PyTorch, C++, Machine Learning, ROS 2
 image: assets/images/omnid-mocobots/main.gif # TODO
 imagewidth: 0
 order: 986
@@ -35,11 +35,7 @@ Each omnid consists of an omnidirectional mobile base and a series-elastic actua
 
 While they are also capable of autonomous action, the omnid team at Northwestern was particularly interested in exploring whether applying generative action prediction through models like diffusion policy could improve omnid performance in collaborative tasks.
 
-Questions asked included:
-- Will action prediction in this system help reduce the force the human must apply to manipulate the payload?
-- Will action prediction in this system help the human control the payload more precisely?
-
-Several potential system architectures were designed to explore these questions. In each architecture, the generative model is used to produce an action, which is then executed by the system. The model in each architecture takes as input:
+Several potential system architectures were designed to explore this question. In each architecture, the generative model is used to produce an action, which is then executed by the system. The model in each architecture takes as input:
 - End-effector X/Y/Z positions, velocities, and forces
 - Gimbal X/Y/Z axis rotations
 - Base twist (optional) from the float controller
@@ -171,7 +167,7 @@ Three cameras were used to collect image data - an overhead camera, a horizontal
 _The camera feed from each camera during a run._
 {: refdef}
 
-In order to record all this data, an `omnid_data_collection` package was written for ROS 2 Iron. This package included a node that recorded ROS bags based on configured input topics, launch files to start all required nodes, and bash helper scripts to guide users through the data collection process. The launch files relied heavily on the [`launch_remote_ssh`](/projects/omnid-mocobots#launch_remote_ssh) package I wrote to launch all required nodes on multiple machines simultaneously.
+In order to record all this data, [Hang-Yin](https://hang-yin.github.io/portfolio/) and I wrote an `omnid_data_collection` package for ROS 2 Iron. This package included a node that recorded ROS bags based on configured input topics, launch files to start all required nodes, and bash helper scripts to guide users through the data collection process. The launch files relied heavily on the [`launch_remote_ssh`](/projects/omnid-mocobots#launch_remote_ssh) package I wrote to launch all required nodes on multiple machines simultaneously.
 
 This infrastructure was critical in collecting data quickly and allowed a **full training human demonstration run to be recorded every 40 seconds**.
 
@@ -200,7 +196,7 @@ To train diffusion policy models, I [forked the diffusion policy repository](htt
 
 Since the [action prediction and receding horizon control](#how-can-diffusion-models-generate-robot-actions) used in diffusion policy relies on discrete timeframes of data, the ROS bag data had to be decimated at a certain rate. For models using image data, I chose this rate to be 15 Hz (one half of the camera refresh rate). For models not using image data, I chose this rate to be 50 Hz (one half of the joint state refresh rate). Data was decimated with a script that averaged collected data over the timeframe period.
 
-For all the models I chose to use a neural network architecture based on the convolutional [U-Net](https://en.wikipedia.org/wiki/U-Net) architecture, since the diffusion policy paper suggested that this may be sufficient for most tasks and easier to tune than the alternative transformer architecture.
+For all the models I chose to use a neural network architecture based on the convolutional [U-Net](https://en.wikipedia.org/wiki/U-Net) architecture, since the [diffusion policy paper](https://arxiv.org/abs/2303.04137) suggested that this may be sufficient for most tasks and easier to tune than the alternative transformer architecture.
 
 Training plots typically looked something like this, with validation loss quickly hitting a minimum and then rising steadily. Validation loss rising like this typically indicates overfitting. In the case of generative model like this one, however, overfitting may not lead to worse performance.
 
@@ -218,18 +214,89 @@ Luckily, the diffusion policy repository is generally well set up for quickly ad
 
 #### Gauntlet Task
 
+The gauntlet task was designed as a method of evaluating the diffusion policy models' performance both in long, sweeping actions across the task space and in fine positioning at each target. Human collaborators would have to guide the omnid to every target in the task space in a set order. At each target, the human needs to precisely locate the omnid's AprilTag at the target location (within a small radius), and hold the omnid there for a certain period. This precision location is confirmed by the overhead camera.
+
+TODO - gauntlet image
+
+The combined magnitude of the X/Y force components on the end effector are then calculated from the data. This force value and the time taken to complete the gauntlet are used as a metric to evalute the run performance.
+
 ****
 
 ## Results
 
 ### Architecture Selection
+From the start, it was fairly easy to rule out some system architectures. For example, the position prediction architecture produced uncontrollable oscillation of the end-effector that prevented any precise positioning. This architecture may work with some further refinement (ex: output smoothing), but in its current state was infeasible.
+
+TODO - oscillation from position model
+
+The force prediction architecture fared much better. But using this architecture with residuals performed poorly, also experiencing (less erratic) oscillations and increased force readings. This suggests that predictions did not necessarily line up well with the actual force feedback, and large components of that feedback was fed back into the force controller as additional force.
+
+TODO - residual force plot
+
+There was not sufficient time during the project to test the base twist prediction architecture, so it remains to be seen how that architecture will compare.
+
+### Model Performance
+
+As mentioned, the force prediction architecture without residuals was the best performing architecture.
+
+TODO - plots
+
+TODO - difference is slight, largely because the controller is already really good.
 
 ****
 
 ## Future Work
 
-- autonomy
-- model tuning (hyperparameters, decimation rate)
-- other model types ("oversmoothing" from CNNs for fast refresh rates)
-- further explore whether more or less training is better
-- better evaluation
+While preliminary results from this testing show some promise, much work still needs to be done to explore the potential benefit of generative models like diffusion policy for assistive tasks with the omnid system.
+
+
+
+{% details **1. Improved evaluation.** %}
+Task completion time and force experienced at the end effector may not be the best quantitative metrics by which to judge the effectiveness of assistive action prediction. They do not necessarily measure how easy it is for a human collaborator to work with the omnids. Developing better metrics may help make the effect of any particular model more clear.
+
+Also, the gauntlet task also may not be effective as an evaluation of the assistive action prediction. Designing other tasks for evaluation (such as payload manipulation) may give better insight into model effectiveness.
+{% enddetails %}
+
+
+
+{% details **2. Exploring other model architectures.** %}
+As mentioned, I trained all models with the U-Net diffusion policy architecture. As per the [diffusion policy paper](https://arxiv.org/abs/2303.04137):
+<blockquote>
+In general, we recommend starting with the CNN-based diffusion policy implementation as the
+first attempt at a new task. If performance is low due to task complexity or high-rate action changes, then the Time-series Diffusion Transformer formulation can be used to potentially improve performance at the cost of additional tuning.
+</blockquote>
+
+This task, especially when performed with lowdim models, is certainly high-rate. So attempting to tune the transformer formulation could be an alternative to improve performance.
+{% enddetails %}
+
+{% details **3. Exploring other system architectures.** %}
+The Northwestern omnid team opted to not try the base twist prediction architecture at the time of this project, as it may cause erratic behavior on the part of the omnids. This might be an interesting architecture to try. The prediction could be used directly, or as a residual (which would require some code modification for training), or some other blending method could be used to blend the float controller's output with the model's prediction output.
+
+Some blending or smoothing method could also be used with the position prediction method to make it a feasible method as well.
+
+While the force prediction method is currently the most successful, it's also possible that it could be improved by using some smoothing or blending method to combine the model's output with feedback.
+{% enddetails %}
+
+{% details **4. Model tuning.** %}
+While I did try several different inputs and outputs, model parameters are also important to the performance of a model regardless of architecture. Some candidates for experimentation are:
+- Length of observation horizon
+- Length of prediction horizon
+- Length of action horizon
+- DDIM vs DDPM noise scheduling and noise scheduling parameters
+- Data decimation rate
+- Length of training (epochs)
+{% enddetails %}
+
+{% details **5. Collecting more data.** %}
+As is typical in machine learning, the more (good) data, the better. Exploring the influence of more data on the effectiveness of the models may help determine how much data is "enough".
+{% enddetails %}
+
+{% details **6. Testing with the full three robot system.** %}
+Once reasonable results are obtained, it would be very interesting to test the full three robot payload manipulation with predictive models running for each robot. This would show if the assistive action prediction approach is effective beyond just the simple single robot case.
+{% enddetails %}
+
+****
+
+There's certainly a lot more to explore in this research! The data collection infrastructure and machine learning pipeline developed during this project should make performing further assistive action prediction research on the omnid platform smooth.
+
+Big thanks to [Hang-Yin](https://hang-yin.github.io/portfolio/) for working with me on developing this infrastructure and [Matthew Elwin](https://robotics.northwestern.edu/people/profiles/faculty/elwin-matt.html) for advising the process.
