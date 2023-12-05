@@ -196,7 +196,23 @@ This includes data that may only be meaningful on evaluation runs (with a genera
 
 ### Training
 
-TODO - decimation
+To train diffusion policy models, I [forked the diffusion policy repository](https://github.com/ngmor/diffusion_policy) and set it up for use with omnid tasks.
+
+Since the [action prediction and receding horizon control](#how-can-diffusion-models-generate-robot-actions) used in diffusion policy relies on discrete timeframes of data, the ROS bag data had to be decimated at a certain rate. For models using image data, I chose this rate to be 15 Hz (one half of the camera refresh rate). For models not using image data, I chose this rate to be 50 Hz (one half of the joint state refresh rate). Data was decimated with a script that averaged collected data over the timeframe period.
+
+For all the models I chose to use a neural network architecture based on the convolutional [U-Net](https://en.wikipedia.org/wiki/U-Net) architecture, since the diffusion policy paper suggested that this may be sufficient for most tasks and easier to tune than the alternative transformer architecture.
+
+Training plots typically looked something like this, with validation loss quickly hitting a minimum and then rising steadily. Validation loss rising like this typically indicates overfitting. In the case of generative model like this one, however, overfitting may not lead to worse performance.
+
+{:refdef: style="text-align: center;"}
+![Training Plots](/assets/images/diffusion-policy-assistive-action-prediction/training-plots.png){: width="100%"}
+{: refdef}
+
+{% details **<u>Expand</u>** for more detail on the code required to get this model training. %}
+Luckily, the diffusion policy repository is generally well set up for quickly adding new tasks - but the cost of this flexibility is that the [codebase structure](https://github.com/ngmor/diffusion_policy#%EF%B8%8F-codebase-tutorial) takes some time to understand. In the end, since I was only creating new tasks, I could get it to work by simply adding new PyTorch dataset loaders, environment runners, and [hydra](https://hydra.cc/) task configurations. Finally, training data had to be converted from from ROS bag data to the [`zarr`](https://zarr.readthedocs.io/en/stable/index.html) format expected as input to the training pipeline. Decimation occurred during this conversion.
+{% enddetails %}
+
+<br>
 
 ### Evaluation
 
@@ -213,5 +229,7 @@ TODO - decimation
 ## Future Work
 
 - autonomy
-- model tuning
+- model tuning (hyperparameters, decimation rate)
+- other model types ("oversmoothing" from CNNs for fast refresh rates)
+- further explore whether more or less training is better
 - better evaluation
