@@ -17,7 +17,21 @@ TODO - video
 
 TODO - results summary
 
-TODO - table of contents
+{% details **<u>Table of Contents</u>** %}
+- [Assistive Action Prediction with the Omnids](#assistive-action-prediction-with-the-omnids)
+  - [Force Prediction](#force-prediction)
+  - [Position Prediction](#position-prediction)
+  - [Base Twist Prediction](#base-twist-prediction)
+- [Diffusion Policy](#diffusion-policy)
+- [Machine Learning Pipeline](#machine-learning-pipeline)
+    - [Data Collection](#data-collection)
+    - [Training](#training)
+    - [Evaluation](#evaluation)
+- [Results](#results)
+    - [Architecture Selection](#architecture-selection)
+    - [Model Performance](#model-performance)
+- [Future Work](#future-work)
+{% enddetails %}
 
 ****
 
