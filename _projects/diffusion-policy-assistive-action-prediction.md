@@ -216,7 +216,12 @@ Luckily, the diffusion policy repository is generally well set up for quickly ad
 
 The gauntlet task was designed as a method of evaluating the diffusion policy models' performance both in long, sweeping actions across the task space and in fine positioning at each target. Human collaborators would have to guide the omnid to every target in the task space in a set order. At each target, the human needs to precisely locate the omnid's AprilTag at the target location (within a small radius), and hold the omnid there for a certain period. This precision location is confirmed by the overhead camera.
 
-TODO - gauntlet image
+{:refdef: style="text-align: center;"}
+![Example Gauntlet Run](/assets/images/diffusion-policy-assistive-action-prediction/example-gauntlet-run.gif){: width="60%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_An example run of the gauntlet task._
+{: refdef}
 
 The combined magnitude of the X/Y force components on the end effector are then calculated from the data. This force value and the time taken to complete the gauntlet are used as a metric to evalute the run performance.
 
