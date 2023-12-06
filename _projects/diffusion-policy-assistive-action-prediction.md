@@ -234,7 +234,7 @@ From the start, it was fairly easy to rule out some system architectures. For ex
 
 TODO - oscillation from position model
 
-The force prediction architecture fared much better. But using this architecture with residuals performed poorly, also experiencing (less erratic) oscillations and increased force readings. This suggests that predictions did not necessarily line up well with the actual force feedback, and large components of that feedback was fed back into the force controller as additional force.
+The force prediction architecture generally fared much better. Actions performed were subtle, but may help with precise positioning of the omnid. However, using force prediction with residuals performed poorly for some model configurations, also experiencing (less erratic) oscillations and increased force readings. This suggests that predictions did not necessarily line up well with the actual force feedback, and large components of that feedback was fed back into the force controller as additional force.
 
 {:refdef: style="text-align: center;"}
 ![Poor Performance of a model with force residuals](/assets/images/diffusion-policy-assistive-action-prediction/residual-poor-performance.png){: width="60%"}
@@ -247,11 +247,15 @@ There was not sufficient time during the project to test the base twist predicti
 
 ### Model Performance
 
-As mentioned, the force prediction architecture without residuals was the best performing architecture.
+As mentioned, the force prediction architecture was the best performing architecture. Below is a plot of the effectiveness of a few permutations of that architecture on the gauntlet task from preliminary data.
 
-TODO - plots
+{:refdef: style="text-align: center;"}
+![Preliminary Gauntlet Results](/assets/images/diffusion-policy-assistive-action-prediction/preliminary-gauntlet-results.png){: width="60%"}
+{: refdef}
 
-TODO - difference is slight, largely because the controller is already really good.
+It seems that using the diffusion policy model does not reduce the force experienced at the end effector. For all models, this force increased - although marginally. Where some improvement can be seen is in the completion time for the gauntlet. It would seem that the predictive actions taken by the model help the user precisely position the omnid more quickly in the target positions, thus decreasing the total gauntlet time. Some models show better performance, and generally the image models show better performance. However, one of the low dimensional models (6) appears to do pretty well, suggesting that for this task image data may not be necessary.
+
+It is important to note that the improvement over the baseline is very slight. This is likely because the float controller that allows the user to position the base of the omnid under the payload already performs well. Improvements on this may only be incremental. But if more data and experimentation can show that performance consistently improves with diffusion policy models, this may be an avenue for improving the experience of human collaborators with these robots.
 
 ****
 
