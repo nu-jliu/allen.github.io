@@ -246,7 +246,12 @@ The combined magnitude of the X/Y force components on the end effector are then 
 ### Architecture Selection
 From the start, it was fairly easy to rule out some system architectures. For example, the position prediction architecture produced uncontrollable oscillation of the end-effector that prevented any precise positioning. This architecture may work with some further refinement (ex: output smoothing), but in its current state was infeasible.
 
-TODO - oscillation from position model
+{:refdef: style="text-align: center;"}
+![Oscillations in position prediction](/assets/images/diffusion-policy-assistive-action-prediction/position-prediction-oscillation.gif){: width="30%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_Erratic oscillation experienced while running position prediction models._
+{: refdef}
 
 The force prediction architecture generally fared much better. Actions performed were subtle, but may help with precise positioning of the omnid. However, using force prediction with residuals performed poorly for some model configurations, also experiencing (less erratic) oscillations and increased force readings. This suggests that predictions did not necessarily line up well with the actual force feedback, and large components of that feedback was fed back into the force controller as additional force.
 
