@@ -2,7 +2,7 @@
 layout: project
 title:  Diffusion Policy Action Prediction
 description: PyTorch, C++, Machine Learning, ROS 2
-image: assets/images/omnid-mocobots/main.gif # TODO
+image: assets/images/diffusion-policy-assistive-action-prediction/main.gif
 imagewidth: 0
 order: 986
 ---
