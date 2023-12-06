@@ -7,7 +7,7 @@ imagewidth: 0
 order: 986
 ---
 
-TODO - github
+[GitHub Repository](https://github.com/ngmor/diffusion_policy)
 
 For my final project in Northwestern University's MSR program, I worked with the unique [**omnidirectional mobile cobots**](https://www.mccormick.northwestern.edu/news/articles/2022/08/mobile-cobots-offer-glimpse-of-future-of-human-robot-interaction/), dubbed "omnid mocobots" or "omnids" for short. These collaborative robots were developed at Northwestern University by [**Elwin et al.**](https://arxiv.org/abs/2206.14293).
 
@@ -236,7 +236,12 @@ TODO - oscillation from position model
 
 The force prediction architecture fared much better. But using this architecture with residuals performed poorly, also experiencing (less erratic) oscillations and increased force readings. This suggests that predictions did not necessarily line up well with the actual force feedback, and large components of that feedback was fed back into the force controller as additional force.
 
-TODO - residual force plot
+{:refdef: style="text-align: center;"}
+![Poor Performance of a model with force residuals](/assets/images/diffusion-policy-assistive-action-prediction/residual-poor-performance.png){: width="60%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_The force experienced at the end-effector is much higher for this lowdim model when using residuals.<br>The same model, without residuals, performs comparably to the baseline on this metric._
+{: refdef}
 
 There was not sufficient time during the project to test the base twist prediction architecture, so it remains to be seen how that architecture will compare.
 
