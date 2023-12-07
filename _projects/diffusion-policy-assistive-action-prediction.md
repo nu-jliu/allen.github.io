@@ -13,7 +13,7 @@ For my final project in Northwestern University's MSR program, I worked with the
 
 A portion of the project involved [upgrading the omnids' onboard systems](/projects/omnid-mocobots), but the main goal of the project was to research novel ways to apply **assistive action prediction using generative machine learning models**. To do this, I explored [**diffusion policy**](https://diffusion-policy.cs.columbia.edu/), a method of generating robot actions using [diffusion models](#diffusion-policy).
 
-{% include youtube.html video_id="8iJfWAawvX4" width="75%" %}
+{% include youtube.html video_id="OzGdJI0vE44" width="75%" %}
 
 <br>
 
