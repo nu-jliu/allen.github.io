@@ -11,11 +11,11 @@ order: 986
 
 For my final project in Northwestern University's MSR program, I worked with the unique [**omnidirectional mobile cobots**](https://www.mccormick.northwestern.edu/news/articles/2022/08/mobile-cobots-offer-glimpse-of-future-of-human-robot-interaction/), dubbed "omnid mocobots" or "omnids" for short. These collaborative robots were developed at Northwestern University by [**Elwin et al.**](https://arxiv.org/abs/2206.14293).
 
-A portion of the project involved [upgrading the omnids' onboard systems](/projects/omnid-mocobots), but the main goal of the project was to research novel ways to apply **assistive action prediction using generative machine learning models**. To do this, I applied [**diffusion policy**](https://diffusion-policy.cs.columbia.edu/), a method of generating robot actions using [diffusion models](#diffusion-policy).
+A portion of the project involved [upgrading the omnids' onboard systems](/projects/omnid-mocobots), but the main goal of the project was to research novel ways to apply **assistive action prediction using generative machine learning models**. To do this, I explored [**diffusion policy**](https://diffusion-policy.cs.columbia.edu/), a method of generating robot actions using [diffusion models](#diffusion-policy).
 
-TODO - video
+{% include youtube.html video_id="8iJfWAawvX4" width="75%" %}
 
-TODO - results summary
+<br>
 
 {% details **<u>Table of Contents</u>** %}
 - [Assistive Action Prediction with the Omnids](#assistive-action-prediction-with-the-omnids)
@@ -65,7 +65,7 @@ The idea behind the force prediction is that if the model can predict the force 
 
 ### Position Prediction
 
-Similarly, position prediction focuses on predicting the position of the end-effector (from its home position) and preemptively commanding the end-effector to that prediction via a position controller.
+Similarly, position prediction focuses on predicting the position of the end-effector (relative to its home position) and preemptively commanding the end-effector to that prediction via a position controller.
 
 {:refdef: style="text-align: center;"}
 ![Position Prediction Setup](/assets/images/diffusion-policy-assistive-action-prediction/position-prediction.png){: width="50%"}
@@ -105,11 +105,18 @@ To do this, the process takes images from the input dataset and gradually introd
 
 Once the network has been trained, the process can then be reversed. An image consisting purely of random Gaussian noise can be generated. Then, over _k_ timesteps, the model "predicts and removes the noise" iteratively, until a newly generated image is created.
 
-Importantly, the model can also be conditioned on other inputs, such as a text prompt. At a high level, this is how many popular image generation models (such as Stable Diffusion and DALL-E 2) generate images from a text prompt.
+Importantly, the model can also be conditioned on other inputs, such as a text prompt. At a high level, this is how many popular image generation models (such as Stable Diffusion and DALL-E 3) generate images from a text prompt.
 
 {% enddetails %}
 
 <br>
+
+{:refdef: style="text-align: center;"}
+![Motorbike Image Generation](/assets/images/diffusion-policy-assistive-action-prediction/motorbike-generation.gif){: width="20%"}
+{: refdef}
+{:refdef: style="text-align: center;"}
+_The diffusion process for a small motorbike image._
+{: refdef}
 
 ### What are diffusion models actually doing?
 "Removing noise" from data (i.e. recovering information from nothing) is not possible - hence the popular description of the reverse diffusion process as "removing noise" to generate new images is not accurate. Instead the diffusion model is learning the **transfer function** between an arbitrary distribution and a Gaussian distribution. This is very useful, as it allows one to take a sample from a Gaussian distribution (which is simple to sample from) and transform it into a sample from an arbitrarily complex distribution of one's choosing.
@@ -123,7 +130,7 @@ _This example is from modifying the above image diffusion model and retraining i
 
 ### How can diffusion models generate robot actions?
 
-[**Diffusion policy**](https://diffusion-policy.cs.columbia.edu/) was introduced in 2023. This policy applies diffusion models to the generation of action sequences based on a dataset of human demonstrations. Much like image generation models can condition their generation on text prompts, diffusion policy conditions the action sequence generation on the observations from the robot's sensors - cameras, position/velocity/force feedback, and more.
+[**Diffusion policy**](https://diffusion-policy.cs.columbia.edu/) applies diffusion models to the generation of action sequences based on a dataset of human demonstrations. Much like image generation models can condition their generation on text prompts, diffusion policy conditions the action sequence generation on the observations from the robot's sensors - cameras, position/velocity/force feedback, and more.
 
 {:refdef: style="text-align: center;"}
 ![Diffusion Policy Action Prediction](/assets/images/diffusion-policy-assistive-action-prediction/diffusion-policy-action-prediction.png){: width="70%"}
