@@ -18,19 +18,22 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Allen's Portfolio
+title: Jingkun (Allen) Liu
 email: jingkunliu2025@u.northwestern.edu
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "" # the subpath of your site, e.g. /blog
+  B.S in Mechanical Engineering and Computer Science from Rose-Hulman Institute of Technology, 
+  M.S in Robotics from Northwestern University.
+baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://allen.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
 github_username:  nu-jliu
-
+phone: (917) 803-7037
+show_downloads: false
+google_analytics:
 # Build settings
-theme: minima
+# theme: minima
+theme: jekyll-theme-slate
+# remote_theme: pages-themes/midnight@v0.2.0
 plugins:
   - jekyll-feed
 
