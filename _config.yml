@@ -1,17 +1,17 @@
 # site settings
-title: Nicolas G. Morales
+title: Jingkun (Allen) Liu
 subtitle: Portfolio
 email: nicolasgmorales@u.northwestern.edu
-description: Hi! My name is Nick, welcome to my portfolio.
+description: Hi! My name is Allen, welcome to my portfolio.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://ngmor.github.io" # the base hostname & protocol for your site
+url: "https://allen.github.io" # the base hostname & protocol for your site
 author:
 street_address:
 city: Chicago
 state: IL
 zip_code:
 country: United States of America
-phone: (937) 776-0843
+phone: (917) 803-7037
 contact_form_id: xeqdvdwn
 
 # homepage tiles
@@ -23,8 +23,8 @@ tiles-count: 10
 # Icons are not shown if value is empty
 # You need to restart jekyll for changes to have an effect
 socials:
-  LinkedIn: https://www.linkedin.com/in/nicolasgmorales/
-  GitHub: https://github.com/ngmor
+  LinkedIn: https://www.linkedin.com/in/jingkun-liu-709b36178/
+  GitHub: https://github.com/nu-jliu
   GitLab:
   Google-Plus:
   Instagram:
