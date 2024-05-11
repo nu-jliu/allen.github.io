@@ -24,10 +24,14 @@ The software is consist of two layers, which is the presentation layer, business
 ![](/assets/images/ios_arch.drawio.png)
 
 ## Presentation Layer
-The main functionality for this layer is to format the data about the grade of a student and then visually present it to student. 
+The main functionality for this layer is to format the data about the grade of a student and then visually present it to student. It will display the following information:
+ - Courses taken for each quarter.
+ - Weighted grade for each course taken
+ - Overall grade for each quarter
+ - Cummulative GPA
 
 ## Business Layer
-This 
+The m
 
 ## Data Layer
 
