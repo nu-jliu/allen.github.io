@@ -1,7 +1,7 @@
 # site settings
 title: Jingkun (Allen) Liu
 subtitle: Portfolio
-email: nicolasgmorales@u.northwestern.edu
+email: jingkunliu2025@u.northwestern.edu
 description: Hi! My name is Allen, welcome to my portfolio.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://allen.github.io" # the base hostname & protocol for your site

@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Home
-landing-title: 'Portfolio: Nicolas G. Morales'
+landing-title: 'Portfolio: Jingkun (Allen) Liu'
 description: null
 image: assets/images/profile-pic.jpeg
 author: null
